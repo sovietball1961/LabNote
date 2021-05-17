@@ -55,6 +55,14 @@ namespace LabNote
                 switch (button.Name)
                 {
                     case "toolStripButton2":
+                        Font baseFont = richTextBox1.SelectionFont;
+                        Font fnt = new Font(baseFont.FontFamily,
+                                            baseFont.Size,
+                                            baseFont.Style | FontStyle.Italic);
+                        richTextBox1.SelectionFont = fnt;
+
+                        baseFont.Dispose();
+                        fnt.Dispose();
                         break;
                     case "toolStripButton3":
                         break;
