@@ -36,6 +36,7 @@ namespace LabNote
         {
             if (e.KeyCode == Keys.Enter)
             {
+                int i = 0;
                 string[] textArray = richTextBox1.Text.Split('\n');
                 Console.WriteLine(Regex.IsMatch(textArray[textArray.Length - 1], @"^ "));
                 if (Regex.IsMatch(textArray[textArray.Length - 1], @"^ ") == true)
@@ -202,5 +203,10 @@ namespace LabNote
                 }
             }
         }
+    }
+
+    public class JsonElement
+    {
+
     }
 }
