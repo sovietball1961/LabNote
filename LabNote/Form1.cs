@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,6 +14,8 @@ namespace LabNote
 {
     public partial class Form1 : Form
     {
+        private static readonly string currentDirectory = Directory.GetCurrentDirectory();
+
         public Form1()
         {
             InitializeComponent();
@@ -36,7 +40,6 @@ namespace LabNote
         {
             if (e.KeyCode == Keys.Enter)
             {
-                int i = 0;
                 string[] textArray = richTextBox1.Text.Split('\n');
                 Console.WriteLine(Regex.IsMatch(textArray[textArray.Length - 1], @"^ "));
                 if (Regex.IsMatch(textArray[textArray.Length - 1], @"^ ") == true)
@@ -203,10 +206,43 @@ namespace LabNote
                 }
             }
         }
+
+        private void WriteSettingsFile()
+        {
+
+            var writer = new StreamWriter($"{currentDirectory}\\{ProgramProperties.SelectingFileName}.json");
+        }
     }
 
-    public class JsonElement
+    public class ProgramProperties
     {
+        public static string SelectingFileName { get; set; }
+    }
 
+    public class JsonElements
+    {
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        [JsonPropertyName("recorder")]
+        public string Recorder { get; set; }
+
+        [JsonPropertyName("date")]
+        public DateTime Date { get; set; }
+
+        [JsonPropertyName("weather")]
+        public string Weather { get; set; }
+
+        [JsonPropertyName("temperature")]
+        public int Temperature { get; set; }
+
+        [JsonPropertyName("humidity")]
+        public int Humidity { get; set; }
+
+        [JsonPropertyName("pressure")]
+        public int Pressure { get; set; }
+
+        [JsonPropertyName("rtfPath")]
+        public string RtfPath { get; set; }
     }
 }
