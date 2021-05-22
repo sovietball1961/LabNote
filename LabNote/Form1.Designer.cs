@@ -54,7 +54,6 @@ namespace LabNote
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
@@ -64,6 +63,7 @@ namespace LabNote
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -328,6 +328,7 @@ namespace LabNote
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton1.ToolTipText = "Save";
+            this.toolStripButton1.Click += new System.EventHandler(this.ToolStripButton1_Click);
             // 
             // toolStripSeparator1
             // 
@@ -346,10 +347,6 @@ namespace LabNote
             this.toolStripButton2.Text = "I";
             this.toolStripButton2.ToolTipText = "斜体";
             this.toolStripButton2.CheckedChanged += new System.EventHandler(this.ToggleButtons_CheckedChanged);
-            // 
-            // fontDialog1
-            // 
-            this.fontDialog1.Font = new System.Drawing.Font("Yu Gothic UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             // 
             // toolStripButton3
             // 
@@ -448,6 +445,10 @@ namespace LabNote
             this.toolStripButton9.Text = "HH:mm";
             this.toolStripButton9.ToolTipText = "タイムフロー";
             // 
+            // fontDialog1
+            // 
+            this.fontDialog1.Font = new System.Drawing.Font("Yu Gothic UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -455,7 +456,8 @@ namespace LabNote
             this.ClientSize = new System.Drawing.Size(825, 470);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
-            this.Text = "e-LabNote";
+            this.Text = "}";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
