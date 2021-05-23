@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,9 +27,10 @@ namespace LabNote
             if (!Directory.Exists(settingsDirectory))
             {
                 Directory.CreateDirectory(settingsDirectory);
-                CreateSettingsFile();
+                // CreateSettingsFile();
             }
             ListSettingsFiles();
+            LoadSettingsFile();
         }
 
         private void TextBoxes_LimitNumberOnly(object sender, KeyPressEventArgs e)
@@ -222,7 +224,14 @@ namespace LabNote
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
         {
-
+            if(listBox1.SelectedIndices.Count == 0)
+            {
+                WriteSettingsFile($"{settingsDirectory}\\{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}");
+            }
+            if(listBox1.SelectedIndices.Count == 1)
+            {
+                WriteSettingsFile($"{settingsDirectory}\\{listBox1.SelectedItem}");
+            }
         }
 
         private void ListSettingsFiles()
@@ -231,34 +240,11 @@ namespace LabNote
             string[] jsonFiles = Directory.GetFiles(settingsDirectory, "*.json");
             foreach (string filePath in jsonFiles)
             {
-                listBox1.Items.Add(Path.GetFileName(filePath));
+                listBox1.Items.Add(Path.GetFileNameWithoutExtension(filePath));
             }
         }
 
-        private void CreateSettingsFile()
-        {
-            var jsonObjects = new JsonElements
-            {
-                Title = "",
-                Recorder = "",
-                Date = DateTime.Now,
-                Weather = "",
-                Temperature = 0,
-                Humidity = 0,
-                Pressure = 0,
-                RtfPath = "",
-            };
-            var jsonOptions = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-            var jsonData = JsonSerializer.Serialize(jsonObjects, jsonOptions);
-            var writer = new StreamWriter($"{settingsDirectory}\\{DateTime.Now.ToString("yy-MM-dd-HH")}.json");
-            writer.Write(jsonData);
-            writer.Close();
-        }
-
-        private void WriteSettingsFile()
+        private void WriteSettingsFile(string targetPath)
         {
             var jsonObjects = new JsonElements
             {
@@ -269,26 +255,57 @@ namespace LabNote
                 Temperature = int.Parse(textBox3.Text),
                 Humidity = int.Parse(textBox4.Text),
                 Pressure = int.Parse(textBox5.Text),
+                RtfPath = $"{settingsDirectory}\\{listBox1.SelectedItem}_rtf.rtf",
             };
             var jsonOptions = new JsonSerializerOptions
             {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                 WriteIndented = true
             };
             var jsonData = JsonSerializer.Serialize(jsonObjects, jsonOptions);
-            var writer = new StreamWriter($"{settingsDirectory}\\{ProgramProperties.SelectingFileName}.json");
+            var writer = new StreamWriter(targetPath + ".json");
+            richTextBox1.SaveFile($"{targetPath}_rtf.rtf", RichTextBoxStreamType.RichText);
             writer.Write(jsonData);
             writer.Close();
         }
 
         private void LoadSettingsFile()
         {
+            if (listBox1.SelectedIndices.Count == 1)
+            {
+                var targetPath = $"{settingsDirectory}\\{listBox1.SelectedItem}";
+                var reader = new StreamReader(targetPath + ".json");
+                var jsonData = reader.ReadToEnd();
+                var jsonObjects = JsonSerializer.Deserialize<JsonElements>(jsonData);
+                reader.Close();
+                textBox1.Text = jsonObjects.Title;
+                textBox2.Text = jsonObjects.Weather;
+                textBox3.Text = jsonObjects.Temperature.ToString();
+                textBox4.Text = jsonObjects.Humidity.ToString();
+                textBox5.Text = jsonObjects.Pressure.ToString();
+                comboBox1.Text = jsonObjects.Recorder;
+                richTextBox1.LoadFile($"{targetPath}_rtf.rtf", RichTextBoxStreamType.RichText);
+            }
+            else { return; }
+        }
 
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadSettingsFile();
         }
     }
 
     public class ProgramProperties
     {
         public static string SelectingFileName { get; set; }
+
+        public static string SelectingFileDate
+        {
+            get
+            {
+                return "";
+            }
+        }
     }
 
     public class JsonElements
