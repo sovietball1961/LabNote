@@ -30,6 +30,7 @@ namespace LabNote
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -64,12 +65,37 @@ namespace LabNote
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.splitContainer1);
+            this.panel1.Location = new System.Drawing.Point(1, 27);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(824, 472);
+            this.panel1.TabIndex = 0;
             // 
             // splitContainer1
             // 
@@ -103,9 +129,9 @@ namespace LabNote
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(825, 470);
-            this.splitContainer1.SplitterDistance = 225;
-            this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.Size = new System.Drawing.Size(824, 472);
+            this.splitContainer1.SplitterDistance = 224;
+            this.splitContainer1.TabIndex = 1;
             // 
             // listBox1
             // 
@@ -116,7 +142,7 @@ namespace LabNote
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(219, 464);
             this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // dateTimePicker1
             // 
@@ -275,7 +301,7 @@ namespace LabNote
             this.richTextBox1.Font = new System.Drawing.Font("Yu Gothic UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.richTextBox1.Location = new System.Drawing.Point(3, 135);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(592, 334);
+            this.richTextBox1.Size = new System.Drawing.Size(592, 333);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
@@ -347,7 +373,7 @@ namespace LabNote
             this.toolStripButton2.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton2.Text = "I";
             this.toolStripButton2.ToolTipText = "斜体";
-            this.toolStripButton2.CheckedChanged += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton2.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
             // 
             // toolStripButton3
             // 
@@ -360,7 +386,7 @@ namespace LabNote
             this.toolStripButton3.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton3.Text = "&U";
             this.toolStripButton3.ToolTipText = "下線";
-            this.toolStripButton3.CheckedChanged += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton3.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
             // 
             // toolStripButton4
             // 
@@ -373,7 +399,7 @@ namespace LabNote
             this.toolStripButton4.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton4.Text = "B";
             this.toolStripButton4.ToolTipText = "太字";
-            this.toolStripButton4.CheckedChanged += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton4.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
             // 
             // toolStripButton5
             // 
@@ -386,7 +412,7 @@ namespace LabNote
             this.toolStripButton5.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton5.Text = "T";
             this.toolStripButton5.ToolTipText = "取り消し線";
-            this.toolStripButton5.CheckedChanged += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton5.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
             // 
             // toolStripSeparator2
             // 
@@ -404,7 +430,7 @@ namespace LabNote
             this.toolStripButton6.Size = new System.Drawing.Size(33, 24);
             this.toolStripButton6.Text = "A^";
             this.toolStripButton6.ToolTipText = "上付き文字";
-            this.toolStripButton6.CheckedChanged += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton6.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
             // 
             // toolStripButton7
             // 
@@ -417,7 +443,7 @@ namespace LabNote
             this.toolStripButton7.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton7.Text = "A_";
             this.toolStripButton7.ToolTipText = "下付き文字";
-            this.toolStripButton7.CheckedChanged += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton7.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
             // 
             // toolStripSeparator3
             // 
@@ -450,15 +476,153 @@ namespace LabNote
             // 
             this.fontDialog1.Font = new System.Drawing.Font("Yu Gothic UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label11.Location = new System.Drawing.Point(12, 6);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 15);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "絞り込み -- ";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label12.Location = new System.Drawing.Point(84, 6);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(19, 15);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "年";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox6.Location = new System.Drawing.Point(109, 3);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(55, 23);
+            this.textBox6.TabIndex = 3;
+            this.textBox6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            // 
+            // textBox7
+            // 
+            this.textBox7.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox7.Location = new System.Drawing.Point(195, 3);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(55, 23);
+            this.textBox7.TabIndex = 5;
+            this.textBox7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label13.Location = new System.Drawing.Point(170, 6);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(19, 15);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "月";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox8.Location = new System.Drawing.Point(282, 3);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(55, 23);
+            this.textBox8.TabIndex = 7;
+            this.textBox8.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label14.Location = new System.Drawing.Point(257, 6);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(19, 15);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "日";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox9.Location = new System.Drawing.Point(368, 3);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(55, 23);
+            this.textBox9.TabIndex = 9;
+            this.textBox9.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label15.Location = new System.Drawing.Point(343, 6);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(19, 15);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "時";
+            // 
+            // textBox10
+            // 
+            this.textBox10.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox10.Location = new System.Drawing.Point(454, 3);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(55, 23);
+            this.textBox10.TabIndex = 11;
+            this.textBox10.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label16.Location = new System.Drawing.Point(429, 6);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(19, 15);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "分";
+            // 
+            // textBox11
+            // 
+            this.textBox11.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox11.Location = new System.Drawing.Point(540, 3);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(55, 23);
+            this.textBox11.TabIndex = 13;
+            this.textBox11.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label17.Location = new System.Drawing.Point(515, 6);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(19, 15);
+            this.label17.TabIndex = 12;
+            this.label17.Text = "秒";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(825, 470);
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(825, 503);
+            this.Controls.Add(this.textBox11);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.textBox9);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.textBox8);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "}";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -467,18 +631,18 @@ namespace LabNote
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.FontDialog fontDialog1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox5;
@@ -491,9 +655,10 @@ namespace LabNote
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
@@ -506,6 +671,20 @@ namespace LabNote
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButton8;
         private System.Windows.Forms.ToolStripButton toolStripButton9;
+        private System.Windows.Forms.FontDialog fontDialog1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.Label label17;
     }
 }
 

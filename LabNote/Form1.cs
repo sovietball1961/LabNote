@@ -30,6 +30,7 @@ namespace LabNote
                 // CreateSettingsFile();
             }
             ListSettingsFiles();
+            LoadUsersListFile();
             LoadSettingsFile();
         }
 
@@ -227,6 +228,7 @@ namespace LabNote
             if(listBox1.SelectedIndices.Count == 0)
             {
                 WriteSettingsFile($"{settingsDirectory}\\{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}");
+                ListSettingsFiles();
             }
             if(listBox1.SelectedIndices.Count == 1)
             {
@@ -246,7 +248,7 @@ namespace LabNote
 
         private void WriteSettingsFile(string targetPath)
         {
-            var jsonObjects = new JsonElements
+            var jsonObjects = new MainJsonElements
             {
                 Title = textBox1.Text,
                 Recorder = comboBox1.Text,
@@ -276,7 +278,7 @@ namespace LabNote
                 var targetPath = $"{settingsDirectory}\\{listBox1.SelectedItem}";
                 var reader = new StreamReader(targetPath + ".json");
                 var jsonData = reader.ReadToEnd();
-                var jsonObjects = JsonSerializer.Deserialize<JsonElements>(jsonData);
+                var jsonObjects = JsonSerializer.Deserialize<MainJsonElements>(jsonData);
                 reader.Close();
                 textBox1.Text = jsonObjects.Title;
                 textBox2.Text = jsonObjects.Weather;
@@ -289,26 +291,57 @@ namespace LabNote
             else { return; }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void LoadUsersListFile()
+        {
+            var targetFile = $"{Directory.GetCurrentDirectory()}\\users.json";
+            if (File.Exists(targetFile))
+            {
+                var reader = new StreamReader(targetFile);
+                var jsonData = reader.ReadToEnd();
+                var jsonObject = JsonSerializer.Deserialize<UsersJsonElement>(jsonData);
+                reader.Close();
+                comboBox1.Items.AddRange(jsonObject.Users.ToArray());
+            }
+            else
+            {
+                var jsonObject = new UsersJsonElement
+                {
+                    Users = new List<string>() { "プロイセン", "ぽるすか", "オーストリア帝国", "ロシア帝国" }
+                };
+                var jsonOptions = new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    WriteIndented = true,
+                };
+                var jsonData = JsonSerializer.Serialize(jsonObject, jsonOptions);
+                var writer = new StreamWriter(targetFile);
+                writer.Write(jsonData);
+                writer.Close();
+                LoadUsersListFile();
+            }
+        }
+
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadSettingsFile();
         }
-    }
 
-    public class ProgramProperties
-    {
-        public static string SelectingFileName { get; set; }
-
-        public static string SelectingFileDate
+        private void SearchingNote_KeyUp(object sender, KeyEventArgs e)
         {
-            get
+            listBox1.Items.Clear();
+            string[] jsonFiles = Directory.GetFiles(settingsDirectory, $"*{textBox6.Text}*-*{textBox7.Text}*-*{textBox8.Text}*_*{textBox9.Text}*-*{textBox10.Text}*-*{textBox11.Text}*.json");
+            foreach (string filePath in jsonFiles)
             {
-                return "";
+                listBox1.Items.Add(Path.GetFileNameWithoutExtension(filePath));
             }
+            //if ((textBox6.Text == "") && (textBox7.Text == "") && (textBox8.Text == "") && (textBox9.Text == "") && (textBox10.Text == "") && (textBox11.Text == ""))
+            //{
+            //    ListSettingsFiles();
+            //}
         }
     }
 
-    public class JsonElements
+    public class MainJsonElements
     {
         [JsonPropertyName("title")]
         public string Title { get; set; }
@@ -333,5 +366,11 @@ namespace LabNote
 
         [JsonPropertyName("rtfPath")]
         public string RtfPath { get; set; }
+    }
+
+    public class UsersJsonElement
+    {
+        [JsonPropertyName("users")]
+        public List<string> Users { get; set; }
     }
 }
