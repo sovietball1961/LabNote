@@ -94,7 +94,7 @@ namespace LabNote
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Location = new System.Drawing.Point(1, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(824, 472);
+            this.panel1.Size = new System.Drawing.Size(779, 470);
             this.panel1.TabIndex = 0;
             // 
             // splitContainer1
@@ -129,18 +129,21 @@ namespace LabNote
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(824, 472);
-            this.splitContainer1.SplitterDistance = 224;
+            this.splitContainer1.Size = new System.Drawing.Size(779, 470);
+            this.splitContainer1.SplitterDistance = 171;
             this.splitContainer1.TabIndex = 1;
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.Font = new System.Drawing.Font("Yu Gothic UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 20;
             this.listBox1.Location = new System.Drawing.Point(3, 3);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(219, 464);
+            this.listBox1.Size = new System.Drawing.Size(165, 464);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
@@ -150,7 +153,8 @@ namespace LabNote
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.ShowCheckBox = true;
             this.dateTimePicker1.Size = new System.Drawing.Size(237, 27);
-            this.dateTimePicker1.TabIndex = 19;
+            this.dateTimePicker1.TabIndex = 0;
+            this.dateTimePicker1.TabStop = false;
             // 
             // label10
             // 
@@ -199,7 +203,7 @@ namespace LabNote
             this.textBox5.Location = new System.Drawing.Point(446, 103);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(80, 27);
-            this.textBox5.TabIndex = 14;
+            this.textBox5.TabIndex = 6;
             this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxes_LimitNumberOnly);
             // 
@@ -230,7 +234,7 @@ namespace LabNote
             this.textBox4.Location = new System.Drawing.Point(327, 103);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(38, 27);
-            this.textBox4.TabIndex = 11;
+            this.textBox4.TabIndex = 5;
             this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxes_LimitNumberOnly);
             // 
@@ -251,7 +255,7 @@ namespace LabNote
             this.textBox3.Location = new System.Drawing.Point(202, 103);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(38, 27);
-            this.textBox3.TabIndex = 9;
+            this.textBox3.TabIndex = 4;
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxes_LimitNumberOnly);
             // 
@@ -271,7 +275,7 @@ namespace LabNote
             this.textBox2.Location = new System.Drawing.Point(71, 103);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(68, 27);
-            this.textBox2.TabIndex = 7;
+            this.textBox2.TabIndex = 3;
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
@@ -290,7 +294,7 @@ namespace LabNote
             this.textBox1.Location = new System.Drawing.Point(72, 28);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(492, 27);
-            this.textBox1.TabIndex = 5;
+            this.textBox1.TabIndex = 1;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // richTextBox1
@@ -301,8 +305,8 @@ namespace LabNote
             this.richTextBox1.Font = new System.Drawing.Font("Yu Gothic UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.richTextBox1.Location = new System.Drawing.Point(3, 135);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(592, 333);
-            this.richTextBox1.TabIndex = 4;
+            this.richTextBox1.Size = new System.Drawing.Size(598, 332);
+            this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             // 
@@ -323,7 +327,7 @@ namespace LabNote
             this.comboBox1.Location = new System.Drawing.Point(72, 64);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(199, 28);
-            this.comboBox1.TabIndex = 1;
+            this.comboBox1.TabIndex = 2;
             // 
             // toolStrip1
             // 
@@ -343,7 +347,7 @@ namespace LabNote
             this.toolStripButton9});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(596, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(604, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -482,15 +486,15 @@ namespace LabNote
             this.label11.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label11.Location = new System.Drawing.Point(12, 6);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(66, 15);
+            this.label11.Size = new System.Drawing.Size(50, 15);
             this.label11.TabIndex = 1;
-            this.label11.Text = "絞り込み -- ";
+            this.label11.Text = "絞り込み";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label12.Location = new System.Drawing.Point(84, 6);
+            this.label12.Location = new System.Drawing.Point(68, 6);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(19, 15);
             this.label12.TabIndex = 2;
@@ -499,26 +503,28 @@ namespace LabNote
             // textBox6
             // 
             this.textBox6.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox6.Location = new System.Drawing.Point(109, 3);
+            this.textBox6.Location = new System.Drawing.Point(93, 3);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(55, 23);
+            this.textBox6.Size = new System.Drawing.Size(38, 23);
             this.textBox6.TabIndex = 3;
+            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
             // 
             // textBox7
             // 
             this.textBox7.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox7.Location = new System.Drawing.Point(195, 3);
+            this.textBox7.Location = new System.Drawing.Point(162, 3);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(55, 23);
+            this.textBox7.Size = new System.Drawing.Size(38, 23);
             this.textBox7.TabIndex = 5;
+            this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label13.Location = new System.Drawing.Point(170, 6);
+            this.label13.Location = new System.Drawing.Point(137, 6);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(19, 15);
             this.label13.TabIndex = 4;
@@ -527,17 +533,18 @@ namespace LabNote
             // textBox8
             // 
             this.textBox8.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox8.Location = new System.Drawing.Point(282, 3);
+            this.textBox8.Location = new System.Drawing.Point(231, 3);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(55, 23);
+            this.textBox8.Size = new System.Drawing.Size(38, 23);
             this.textBox8.TabIndex = 7;
+            this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox8.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label14.Location = new System.Drawing.Point(257, 6);
+            this.label14.Location = new System.Drawing.Point(206, 6);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(19, 15);
             this.label14.TabIndex = 6;
@@ -546,17 +553,18 @@ namespace LabNote
             // textBox9
             // 
             this.textBox9.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox9.Location = new System.Drawing.Point(368, 3);
+            this.textBox9.Location = new System.Drawing.Point(300, 3);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(55, 23);
+            this.textBox9.Size = new System.Drawing.Size(38, 23);
             this.textBox9.TabIndex = 9;
+            this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox9.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label15.Location = new System.Drawing.Point(343, 6);
+            this.label15.Location = new System.Drawing.Point(275, 6);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(19, 15);
             this.label15.TabIndex = 8;
@@ -565,17 +573,18 @@ namespace LabNote
             // textBox10
             // 
             this.textBox10.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox10.Location = new System.Drawing.Point(454, 3);
+            this.textBox10.Location = new System.Drawing.Point(369, 3);
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(55, 23);
+            this.textBox10.Size = new System.Drawing.Size(38, 23);
             this.textBox10.TabIndex = 11;
+            this.textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox10.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label16.Location = new System.Drawing.Point(429, 6);
+            this.label16.Location = new System.Drawing.Point(344, 6);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(19, 15);
             this.label16.TabIndex = 10;
@@ -584,17 +593,18 @@ namespace LabNote
             // textBox11
             // 
             this.textBox11.Font = new System.Drawing.Font("Yu Gothic UI Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox11.Location = new System.Drawing.Point(540, 3);
+            this.textBox11.Location = new System.Drawing.Point(438, 3);
             this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(55, 23);
+            this.textBox11.Size = new System.Drawing.Size(38, 23);
             this.textBox11.TabIndex = 13;
+            this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox11.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label17.Location = new System.Drawing.Point(515, 6);
+            this.label17.Location = new System.Drawing.Point(413, 6);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(19, 15);
             this.label17.TabIndex = 12;
@@ -604,7 +614,7 @@ namespace LabNote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(825, 503);
+            this.ClientSize = new System.Drawing.Size(780, 500);
             this.Controls.Add(this.textBox11);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.textBox10);
