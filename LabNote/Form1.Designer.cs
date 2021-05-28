@@ -154,7 +154,6 @@ namespace LabNote
             this.dateTimePicker1.ShowCheckBox = true;
             this.dateTimePicker1.Size = new System.Drawing.Size(237, 27);
             this.dateTimePicker1.TabIndex = 0;
-            this.dateTimePicker1.TabStop = false;
             // 
             // label10
             // 
@@ -456,6 +455,7 @@ namespace LabNote
             // 
             // toolStripButton8
             // 
+            this.toolStripButton8.CheckOnClick = true;
             this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButton8.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
@@ -464,6 +464,7 @@ namespace LabNote
             this.toolStripButton8.Size = new System.Drawing.Size(31, 24);
             this.toolStripButton8.Text = "・ー";
             this.toolStripButton8.ToolTipText = "箇条書き";
+            this.toolStripButton8.Click += new System.EventHandler(this.ToolStripButton8_Click);
             // 
             // toolStripButton9
             // 

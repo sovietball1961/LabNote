@@ -53,14 +53,28 @@ namespace LabNote
         {
             if (e.KeyCode == Keys.Enter)
             {
+                int i = 0;
                 string[] textArray = richTextBox1.Text.Split('\n');
                 Console.WriteLine(Regex.IsMatch(textArray[textArray.Length - 1], @"^ "));
                 if (Regex.IsMatch(textArray[textArray.Length - 1], @"^ ") == true)
                 {
-                    int i = 0;
                     char[] strings = textArray[textArray.Length - 1].ToCharArray();
                     while (strings[i] == ' ') { i++; }
                     richTextBox1.AppendText("\n" + new string(' ', i));
+                    e.Handled = true;
+                    if (toolStripButton8.Checked == true)
+                    {
+                        richTextBox1.Select(i, 0);
+                        richTextBox1.AppendText("・");
+                        return;
+                    }
+                }
+                if (toolStripButton8.Checked == true)
+                {
+                    char[] strings = textArray[textArray.Length - 1].ToCharArray();
+                    while (strings[i] == ' ') { i++; }
+                    richTextBox1.Select(i, 0);
+                    richTextBox1.AppendText("\n・");
                     e.Handled = true;
                 }
             }
@@ -73,6 +87,7 @@ namespace LabNote
             Font baseFont = richTextBox1.SelectionFont;
             float offsetSize = (float)1.5;
             int offsetLocation = 2;
+
             if (button.Checked == true)
             {
                 switch (button.Name)
@@ -156,6 +171,9 @@ namespace LabNote
 
                         baseFont.Dispose();
                         fnt5.Dispose();
+                        break;
+                    case "toolStripButton8":
+
                         break;
                 }
             }
@@ -338,6 +356,11 @@ namespace LabNote
             //{
             //    ListSettingsFiles();
             //}
+        }
+
+        private void ToolStripButton8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
