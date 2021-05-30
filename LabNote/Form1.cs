@@ -254,6 +254,68 @@ namespace LabNote
             }
         }
 
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadSettingsFile();
+        }
+
+        private void SearchingNote_KeyUp(object sender, KeyEventArgs e)
+        {
+            listBox1.Items.Clear();
+            string[] jsonFiles = Directory.GetFiles(settingsDirectory, $"*{textBox6.Text}*-*{textBox7.Text}*-*{textBox8.Text}*_*{textBox9.Text}*-*{textBox10.Text}*-*{textBox11.Text}*.json");
+            foreach (string filePath in jsonFiles)
+            {
+                listBox1.Items.Add(Path.GetFileNameWithoutExtension(filePath));
+            }
+            //if ((textBox6.Text == "") && (textBox7.Text == "") && (textBox8.Text == "") && (textBox9.Text == "") && (textBox10.Text == "") && (textBox11.Text == ""))
+            //{
+            //    ListSettingsFiles();
+            //}
+        }
+
+        private void ToolStripButton8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            Keys code = keyData & Keys.KeyCode;
+            Keys modi = keyData & Keys.Modifiers;
+
+            if (modi == Keys.Control)
+            {
+                switch (code)
+                {
+                    case Keys.S:
+                        toolStripButton1.PerformClick();
+                        break;
+                    case Keys.I:
+                        toolStripButton2.Checked = !toolStripButton2.Checked;
+                        break;
+                    case Keys.U:
+                        toolStripButton3.Checked = !toolStripButton3.Checked;
+                        break;
+                    case Keys.B:
+                        toolStripButton4.Checked = !toolStripButton4.Checked;
+                        break;
+                    case Keys.T:
+                        toolStripButton5.Checked = !toolStripButton5.Checked;
+                        break;
+                    case Keys.Up:
+                        toolStripButton6.Checked = !toolStripButton6.Checked;
+                        break;
+                    case Keys.Down:
+                        toolStripButton7.Checked = !toolStripButton7.Checked;
+                        break;
+                    case Keys.OemPeriod:
+                        toolStripButton8.Checked = !toolStripButton8.Checked;
+                        break;
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         private void ListSettingsFiles()
         {
             listBox1.Items.Clear();
@@ -337,30 +399,6 @@ namespace LabNote
                 writer.Close();
                 LoadUsersListFile();
             }
-        }
-
-        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadSettingsFile();
-        }
-
-        private void SearchingNote_KeyUp(object sender, KeyEventArgs e)
-        {
-            listBox1.Items.Clear();
-            string[] jsonFiles = Directory.GetFiles(settingsDirectory, $"*{textBox6.Text}*-*{textBox7.Text}*-*{textBox8.Text}*_*{textBox9.Text}*-*{textBox10.Text}*-*{textBox11.Text}*.json");
-            foreach (string filePath in jsonFiles)
-            {
-                listBox1.Items.Add(Path.GetFileNameWithoutExtension(filePath));
-            }
-            //if ((textBox6.Text == "") && (textBox7.Text == "") && (textBox8.Text == "") && (textBox9.Text == "") && (textBox10.Text == "") && (textBox11.Text == ""))
-            //{
-            //    ListSettingsFiles();
-            //}
-        }
-
-        private void ToolStripButton8_Click(object sender, EventArgs e)
-        {
-
         }
     }
 

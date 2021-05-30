@@ -631,7 +631,7 @@ namespace LabNote
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
-            this.Text = "}";
+            this.Text = "LabNote";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
