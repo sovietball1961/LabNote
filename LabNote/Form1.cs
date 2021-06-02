@@ -291,26 +291,35 @@ namespace LabNote
                         toolStripButton1.PerformClick();
                         break;
                     case Keys.I:
-                        toolStripButton2.Checked = !toolStripButton2.Checked;
+                        toolStripButton2.Checked = toolStripButton2.Checked;
+                        toolStripButton2.PerformClick();
                         break;
                     case Keys.U:
-                        toolStripButton3.Checked = !toolStripButton3.Checked;
+                        toolStripButton3.Checked = toolStripButton3.Checked;
+                        toolStripButton3.PerformClick();
                         break;
                     case Keys.B:
-                        toolStripButton4.Checked = !toolStripButton4.Checked;
+                        toolStripButton4.Checked = toolStripButton4.Checked;
+                        toolStripButton4.PerformClick();
                         break;
                     case Keys.T:
-                        toolStripButton5.Checked = !toolStripButton5.Checked;
+                        toolStripButton5.Checked = toolStripButton5.Checked;
+                        toolStripButton5.PerformClick();
                         break;
                     case Keys.Up:
-                        toolStripButton6.Checked = !toolStripButton6.Checked;
+                        toolStripButton6.Checked = toolStripButton6.Checked;
+                        toolStripButton6.PerformClick();
                         break;
                     case Keys.Down:
-                        toolStripButton7.Checked = !toolStripButton7.Checked;
+                        toolStripButton7.Checked = toolStripButton7.Checked;
+                        toolStripButton7.PerformClick();
                         break;
                     case Keys.OemPeriod:
-                        toolStripButton8.Checked = !toolStripButton8.Checked;
+                        toolStripButton8.Checked = toolStripButton8.Checked;
+                        toolStripButton9.PerformClick();
                         break;
+                    default:
+                        return false;
                 }
             }
             return base.ProcessCmdKey(ref msg, keyData);
