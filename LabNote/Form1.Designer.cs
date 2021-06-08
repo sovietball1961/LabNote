@@ -63,7 +63,6 @@ namespace LabNote
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -342,8 +341,7 @@ namespace LabNote
             this.toolStripButton6,
             this.toolStripButton7,
             this.toolStripSeparator3,
-            this.toolStripButton8,
-            this.toolStripButton9});
+            this.toolStripButton8});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(604, 27);
@@ -465,17 +463,6 @@ namespace LabNote
             this.toolStripButton8.Text = "・ー";
             this.toolStripButton8.ToolTipText = "箇条書き";
             this.toolStripButton8.Click += new System.EventHandler(this.ToolStripButton8_Click);
-            // 
-            // toolStripButton9
-            // 
-            this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton9.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
-            this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton9.Name = "toolStripButton9";
-            this.toolStripButton9.Size = new System.Drawing.Size(64, 24);
-            this.toolStripButton9.Text = "HH:mm";
-            this.toolStripButton9.ToolTipText = "タイムフロー";
             // 
             // fontDialog1
             // 
@@ -681,7 +668,6 @@ namespace LabNote
         private System.Windows.Forms.ToolStripButton toolStripButton7;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButton8;
-        private System.Windows.Forms.ToolStripButton toolStripButton9;
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;

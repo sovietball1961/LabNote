@@ -78,14 +78,13 @@ namespace LabNote
                     e.Handled = true;
                 }
             }
-            else { return; }
         }
 
         private void ToggleButtons_CheckedChanged(object sender, EventArgs e)
         {
             ToolStripButton button = sender as ToolStripButton;
             Font baseFont = richTextBox1.SelectionFont;
-            float offsetSize = (float)1.5;
+            int offsetSize = 2;
             int offsetLocation = 2;
 
             if (button.Checked == true)
@@ -133,13 +132,14 @@ namespace LabNote
                         {
                             toolStripButton7.Checked = false;
                             Font fnt40 = new Font(baseFont.FontFamily,
-                                                 baseFont.Size + offsetSize,
-                                                 baseFont.Style);
+                                                  baseFont.Size,
+                                                  baseFont.Style);
                             richTextBox1.SelectionFont = fnt40;
-                            richTextBox1.SelectionCharOffset = 0;
+                            richTextBox1.SelectionCharOffset = offsetLocation;
 
                             baseFont.Dispose();
                             fnt40.Dispose();
+                            break;
                         }
                         Font fnt4 = new Font(baseFont.FontFamily,
                                              baseFont.Size - offsetSize,
@@ -155,14 +155,15 @@ namespace LabNote
                         {
                             toolStripButton6.Checked = false;
                             Font fnt50 = new Font(baseFont.FontFamily,
-                                                  baseFont.Size + offsetSize,
+                                                  baseFont.Size,
                                                   baseFont.Style);
                             richTextBox1.SelectionFont = fnt50;
-                            richTextBox1.SelectionCharOffset = 0;
+                            richTextBox1.SelectionCharOffset = -offsetLocation;
 
                             baseFont.Dispose();
                             fnt50.Dispose();
-                        };
+                            break;
+                        }
                         Font fnt5 = new Font(baseFont.FontFamily,
                                              baseFont.Size - offsetSize,
                                              baseFont.Style);
@@ -171,9 +172,6 @@ namespace LabNote
 
                         baseFont.Dispose();
                         fnt5.Dispose();
-                        break;
-                    case "toolStripButton8":
-
                         break;
                 }
             }
@@ -306,20 +304,18 @@ namespace LabNote
                         toolStripButton5.Checked = toolStripButton5.Checked;
                         toolStripButton5.PerformClick();
                         break;
-                    case Keys.Up:
-                        toolStripButton6.Checked = toolStripButton6.Checked;
+                    case Keys.PageUp:
                         toolStripButton6.PerformClick();
                         break;
-                    case Keys.Down:
-                        toolStripButton7.Checked = toolStripButton7.Checked;
+                    case Keys.PageDown:
                         toolStripButton7.PerformClick();
                         break;
                     case Keys.OemPeriod:
                         toolStripButton8.Checked = toolStripButton8.Checked;
-                        toolStripButton9.PerformClick();
+                        toolStripButton8.PerformClick();
                         break;
                     default:
-                        return false;
+                        break;
                 }
             }
             return base.ProcessCmdKey(ref msg, keyData);
