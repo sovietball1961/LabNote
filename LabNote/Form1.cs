@@ -78,6 +78,7 @@ namespace LabNote
                     e.Handled = true;
                 }
             }
+            else { return; }
         }
 
         private void ToggleButtons_CheckedChanged(object sender, EventArgs e)
@@ -254,7 +255,23 @@ namespace LabNote
 
         private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadSettingsFile();
+            if (listBox1.SelectedIndex != 0)
+            {
+                if (listBox1.SelectedIndex + 1 == listBox1.Items.Count)
+                {
+                    TextBox[] textBoxes = new TextBox[] { textBox1, textBox2, textBox3, textBox4, textBox5 };
+                    foreach(var textBox in textBoxes)
+                    {
+                        textBox.Text = "";
+                    }
+                    comboBox1.Text = "";
+                    richTextBox1.Text = "";
+                }
+                else
+                {
+                    LoadSettingsFile();
+                }
+            }
         }
 
         private void SearchingNote_KeyUp(object sender, KeyEventArgs e)
@@ -329,6 +346,7 @@ namespace LabNote
             {
                 listBox1.Items.Add(Path.GetFileNameWithoutExtension(filePath));
             }
+            listBox1.Items.Add("新規作成");
         }
 
         private void WriteSettingsFile(string targetPath)
