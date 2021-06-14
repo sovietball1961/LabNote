@@ -32,6 +32,7 @@ namespace LabNote
             ListSettingsFiles();
             LoadUsersListFile();
             LoadSettingsFile();
+            listBox1.SelectedIndex = listBox1.Items.Count - 1;
         }
 
         private void TextBoxes_LimitNumberOnly(object sender, KeyPressEventArgs e)
@@ -59,7 +60,14 @@ namespace LabNote
                 if (Regex.IsMatch(textArray[textArray.Length - 1], @"^ ") == true)
                 {
                     char[] strings = textArray[textArray.Length - 1].ToCharArray();
-                    while (strings[i] == ' ') { i++; }
+                    while (strings[i] == ' ')
+                    {
+                        i++;
+                        if (i >= strings.Length)
+                        {
+                            break;
+                        }
+                    }
                     richTextBox1.AppendText("\n" + new string(' ', i));
                     e.Handled = true;
                     if (toolStripButton8.Checked == true)
@@ -174,6 +182,21 @@ namespace LabNote
                         baseFont.Dispose();
                         fnt5.Dispose();
                         break;
+                    case "toolStripButton8":
+                        int i = 0;
+                        string[] textArray = richTextBox1.Text.Split('\n');
+                        char[] strings = textArray[textArray.Length - 1].ToCharArray();
+                        while (strings[i] == ' ')
+                        {
+                            i++;
+                            if (i >= strings.Length)
+                            {
+                                break;
+                            }
+                        }
+                        richTextBox1.Select(i - 1, 0);
+                        richTextBox1.AppendText("・");
+                        break;
                 }
             }
             else if (button.Checked == false)
@@ -242,10 +265,11 @@ namespace LabNote
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
         {
-            if(listBox1.SelectedIndices.Count == 0)
+            if(listBox1.SelectedIndex == listBox1.Items.Count - 1)
             {
                 WriteSettingsFile($"{settingsDirectory}\\{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}");
                 ListSettingsFiles();
+                listBox1.SelectedIndex = listBox1.Items.Count -  2;
             }
             if(listBox1.SelectedIndices.Count == 1)
             {
@@ -335,6 +359,16 @@ namespace LabNote
                         break;
                 }
             }
+            switch (code)
+            {
+                case Keys.Tab:
+                    if (richTextBox1.Focused == true)
+                    {
+                        richTextBox1.AppendText(new string(' ', 4));
+                        textBox5.Focus();
+                    }
+                    break;
+            } 
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -346,7 +380,7 @@ namespace LabNote
             {
                 listBox1.Items.Add(Path.GetFileNameWithoutExtension(filePath));
             }
-            listBox1.Items.Add("新規作成");
+            listBox1.Items.Add("    新規作成");
         }
 
         private void WriteSettingsFile(string targetPath)

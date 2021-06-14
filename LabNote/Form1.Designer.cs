@@ -153,6 +153,7 @@ namespace LabNote
             this.dateTimePicker1.ShowCheckBox = true;
             this.dateTimePicker1.Size = new System.Drawing.Size(237, 27);
             this.dateTimePicker1.TabIndex = 0;
+            this.dateTimePicker1.TabStop = false;
             // 
             // label10
             // 
