@@ -106,6 +106,7 @@ namespace LabNote
                                             baseFont.Style | FontStyle.Italic);
                         richTextBox1.SelectionFont = fnt0;
 
+                        toolStripButton2.BackColor = SystemColors.GrayText;
                         baseFont.Dispose();
                         fnt0.Dispose();
                         break;
@@ -115,6 +116,7 @@ namespace LabNote
                                             baseFont.Style | FontStyle.Underline);
                         richTextBox1.SelectionFont = fnt1;
 
+                        toolStripButton3.BackColor = SystemColors.ButtonFace;
                         baseFont.Dispose();
                         fnt1.Dispose();
                         break;
@@ -209,6 +211,7 @@ namespace LabNote
                                             baseFont.Style & ~FontStyle.Italic);
                         richTextBox1.SelectionFont = fnt0;
 
+                        toolStripButton2.BackColor = SystemColors.Control;
                         baseFont.Dispose();
                         fnt0.Dispose();
                         break;
@@ -218,6 +221,7 @@ namespace LabNote
                                             baseFont.Style & ~FontStyle.Underline);
                         richTextBox1.SelectionFont = fnt1;
 
+                        toolStripButton2.BackColor = SystemColors.Control;
                         baseFont.Dispose();
                         fnt1.Dispose();
                         break;
@@ -345,16 +349,16 @@ namespace LabNote
                         toolStripButton5.Checked = toolStripButton5.Checked;
                         toolStripButton5.PerformClick();
                         break;
-                    case Keys.PageUp:
-                        toolStripButton6.PerformClick();
-                        break;
-                    case Keys.PageDown:
-                        toolStripButton7.PerformClick();
-                        break;
                     case Keys.OemPeriod:
                         toolStripButton8.Checked = toolStripButton8.Checked;
                         toolStripButton8.PerformClick();
                         break;
+                    case Keys.PageUp:
+                        toolStripButton6.PerformClick();
+                        return true;
+                    case Keys.PageDown:
+                        toolStripButton7.PerformClick();
+                        return true;
                     default:
                         break;
                 }
