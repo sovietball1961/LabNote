@@ -16,6 +16,13 @@ namespace LabNote
     public partial class Form1 : Form
     {
         private static readonly string settingsDirectory = $"{Directory.GetCurrentDirectory()}\\data";
+        // richTextBox1フォント固定用定数
+        // private const uint IMF_DUALFONT = 0x80;
+        // private const uint WM_USER = 0x0400;
+        // private const uint EM_SETLANGOPTIONS = WM_USER + 120;
+        // private const uint EM_GETLANGOPTIONS = WM_USER + 121;
+        // [System.Runtime.InteropServices.DllImport("USER32.dll")]
+        // private static extern uint SendMessage(IntPtr hWnd, uint msg, uint wParam, uint lParam);
 
         public Form1()
         {
@@ -33,6 +40,9 @@ namespace LabNote
             LoadUsersListFile();
             LoadSettingsFile();
             listBox1.SelectedIndex = listBox1.Items.Count - 1;
+            richTextBox1.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
+
+            // RejectRichTextFontChanging(richTextBox1);
         }
 
         private void TextBoxes_LimitNumberOnly(object sender, KeyPressEventArgs e)
@@ -102,28 +112,26 @@ namespace LabNote
                 {
                     case "toolStripButton2":
                         Font fnt0 = new Font(baseFont.FontFamily,
-                                            baseFont.Size,
-                                            baseFont.Style | FontStyle.Italic);
+                                             baseFont.Size,
+                                             baseFont.Style | FontStyle.Italic);
                         richTextBox1.SelectionFont = fnt0;
 
-                        toolStripButton2.BackColor = SystemColors.GrayText;
                         baseFont.Dispose();
                         fnt0.Dispose();
                         break;
                     case "toolStripButton3":
                         Font fnt1 = new Font(baseFont.FontFamily,
-                                            baseFont.Size,
-                                            baseFont.Style | FontStyle.Underline);
+                                             baseFont.Size,
+                                             baseFont.Style | FontStyle.Underline);
                         richTextBox1.SelectionFont = fnt1;
 
-                        toolStripButton3.BackColor = SystemColors.ButtonFace;
                         baseFont.Dispose();
                         fnt1.Dispose();
                         break;
                     case "toolStripButton4":
                         Font fnt2 = new Font(baseFont.FontFamily,
-                                            baseFont.Size,
-                                            baseFont.Style | FontStyle.Bold);
+                                             baseFont.Size,
+                                             baseFont.Style | FontStyle.Bold);
                         richTextBox1.SelectionFont = fnt2;
 
                         baseFont.Dispose();
@@ -131,8 +139,8 @@ namespace LabNote
                         break;
                     case "toolStripButton5":
                         Font fnt3 = new Font(baseFont.FontFamily,
-                                            baseFont.Size,
-                                            baseFont.Style | FontStyle.Strikeout);
+                                             baseFont.Size,
+                                             baseFont.Style | FontStyle.Strikeout);
                         richTextBox1.SelectionFont = fnt3;
 
                         baseFont.Dispose();
@@ -265,6 +273,63 @@ namespace LabNote
                         break;
                 }
             }
+
+            // if ((baseFont.Style & FontStyle.Italic) != 0)
+            // {
+            //     toolStripButton2.Checked = true;
+            // }
+            // else
+            // {
+            //     toolStripButton2.Checked = false;
+            // }
+            // 
+            // if ((baseFont.Style & FontStyle.Underline) != 0)
+            // {
+            //     toolStripButton3.Checked = true;
+            // }
+            // else
+            // {
+            //     toolStripButton3.Checked = false;
+            // }
+            // 
+            // if ((baseFont.Style & FontStyle.Bold) != 0)
+            // {
+            //     toolStripButton4.Checked = true;
+            // }
+            // else
+            // {
+            //     toolStripButton4.Checked = false;
+            // }
+            // 
+            // if ((baseFont.Style & FontStyle.Strikeout) != 0)
+            // {
+            //     toolStripButton5.Checked = true;
+            // }
+            // else
+            // {
+            //     toolStripButton5.Checked = false;
+            // }
+            // 
+            // if (richTextBox1.SelectionCharOffset > 0)
+            // {
+            //     toolStripButton6.Checked = true;
+            //     toolStripButton7.Checked = false;
+            // }
+            // else if (richTextBox1.SelectionCharOffset < 0)
+            // {
+            //     toolStripButton6.Checked = false;
+            //     toolStripButton7.Checked = true;
+            // }
+            // 
+            // string[] textArray0 = richTextBox1.Text.Split('\n');
+            // if (Regex.IsMatch(textArray0[richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart)], "・") == true)
+            // {
+            //     toolStripButton8.Checked = true;
+            // }
+            // else
+            // {
+            //     toolStripButton8.Checked = false;
+            // }
         }
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
@@ -294,9 +359,12 @@ namespace LabNote
                     }
                     comboBox1.Text = "";
                     richTextBox1.Text = "";
+                    dateTimePicker1.Enabled = true;
+                    dateTimePicker1.Value = DateTime.Now;
                 }
                 else
                 {
+                    dateTimePicker1.Enabled = false;
                     LoadSettingsFile();
                 }
             }
@@ -332,27 +400,22 @@ namespace LabNote
                 {
                     case Keys.S:
                         toolStripButton1.PerformClick();
-                        break;
+                        return true;
                     case Keys.I:
-                        toolStripButton2.Checked = toolStripButton2.Checked;
                         toolStripButton2.PerformClick();
-                        break;
+                        return true;
                     case Keys.U:
-                        toolStripButton3.Checked = toolStripButton3.Checked;
                         toolStripButton3.PerformClick();
-                        break;
+                        return true;
                     case Keys.B:
-                        toolStripButton4.Checked = toolStripButton4.Checked;
                         toolStripButton4.PerformClick();
-                        break;
+                        return true;
                     case Keys.T:
-                        toolStripButton5.Checked = toolStripButton5.Checked;
                         toolStripButton5.PerformClick();
-                        break;
+                        return true;
                     case Keys.OemPeriod:
-                        toolStripButton8.Checked = toolStripButton8.Checked;
                         toolStripButton8.PerformClick();
-                        break;
+                        return true;
                     case Keys.PageUp:
                         toolStripButton6.PerformClick();
                         return true;
@@ -427,6 +490,7 @@ namespace LabNote
                 textBox4.Text = jsonObjects.Humidity.ToString();
                 textBox5.Text = jsonObjects.Pressure.ToString();
                 comboBox1.Text = jsonObjects.Recorder;
+                dateTimePicker1.Value = jsonObjects.Date;
                 richTextBox1.LoadFile($"{targetPath}_rtf.rtf", RichTextBoxStreamType.RichText);
             }
             else { return; }
@@ -461,6 +525,20 @@ namespace LabNote
                 LoadUsersListFile();
             }
         }
+
+        private void RichTextBox1_CursorChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        // richTextBox1 フォント固定用メソッド
+        // private void RejectRichTextFontChanging(RichTextBox RichTextBoxCtrl)
+        // {
+        //     uint lParam;
+        //     lParam = SendMessage(RichTextBoxCtrl.Handle, EM_GETLANGOPTIONS, 0, 0);
+        //     lParam &= ~IMF_DUALFONT;
+        //     SendMessage(RichTextBoxCtrl.Handle, EM_SETLANGOPTIONS, 0, lParam);
+        // }
     }
 
     public class MainJsonElements
