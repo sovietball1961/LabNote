@@ -131,6 +131,7 @@ namespace LabNote
             this.splitContainer1.Size = new System.Drawing.Size(779, 470);
             this.splitContainer1.SplitterDistance = 171;
             this.splitContainer1.TabIndex = 1;
+            this.splitContainer1.TabStop = false;
             // 
             // listBox1
             // 

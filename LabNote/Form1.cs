@@ -96,6 +96,71 @@ namespace LabNote
                     e.Handled = true;
                 }
             }
+            if (e.KeyCode == Keys.Right || e.KeyCode == Keys.Left || e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+            {
+                Font baseFont = richTextBox1.SelectionFont;
+                if ((baseFont.Style & FontStyle.Italic) != 0)
+                {
+                    toolStripButton2.Checked = true;
+                }
+                else
+                {
+                    toolStripButton2.Checked = false;
+                }
+
+                if ((baseFont.Style & FontStyle.Underline) != 0)
+                {
+                    toolStripButton3.Checked = true;
+                }
+                else
+                {
+                    toolStripButton3.Checked = false;
+                }
+
+                if ((baseFont.Style & FontStyle.Bold) != 0)
+                {
+                    toolStripButton4.Checked = true;
+                }
+                else
+                {
+                    toolStripButton4.Checked = false;
+                }
+
+                if ((baseFont.Style & FontStyle.Strikeout) != 0)
+                {
+                    toolStripButton5.Checked = true;
+                }
+                else
+                {
+                    toolStripButton5.Checked = false;
+                }
+
+                if (richTextBox1.SelectionCharOffset > 0)
+                {
+                    toolStripButton6.Checked = true;
+                    toolStripButton7.Checked = false;
+                }
+                else if (richTextBox1.SelectionCharOffset < 0)
+                {
+                    toolStripButton6.Checked = false;
+                    toolStripButton7.Checked = true;
+                }
+                else
+                {
+                    toolStripButton6.Checked = false;
+                    toolStripButton7.Checked = false;
+                }
+
+                string[] textArray0 = richTextBox1.Text.Split('\n');
+                if (Regex.IsMatch(textArray0[richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart)], "・") == true)
+                {
+                    toolStripButton8.Checked = true;
+                }
+                else
+                {
+                    toolStripButton8.Checked = false;
+                }
+            }
             else { return; }
         }
 
@@ -273,63 +338,6 @@ namespace LabNote
                         break;
                 }
             }
-
-            // if ((baseFont.Style & FontStyle.Italic) != 0)
-            // {
-            //     toolStripButton2.Checked = true;
-            // }
-            // else
-            // {
-            //     toolStripButton2.Checked = false;
-            // }
-            // 
-            // if ((baseFont.Style & FontStyle.Underline) != 0)
-            // {
-            //     toolStripButton3.Checked = true;
-            // }
-            // else
-            // {
-            //     toolStripButton3.Checked = false;
-            // }
-            // 
-            // if ((baseFont.Style & FontStyle.Bold) != 0)
-            // {
-            //     toolStripButton4.Checked = true;
-            // }
-            // else
-            // {
-            //     toolStripButton4.Checked = false;
-            // }
-            // 
-            // if ((baseFont.Style & FontStyle.Strikeout) != 0)
-            // {
-            //     toolStripButton5.Checked = true;
-            // }
-            // else
-            // {
-            //     toolStripButton5.Checked = false;
-            // }
-            // 
-            // if (richTextBox1.SelectionCharOffset > 0)
-            // {
-            //     toolStripButton6.Checked = true;
-            //     toolStripButton7.Checked = false;
-            // }
-            // else if (richTextBox1.SelectionCharOffset < 0)
-            // {
-            //     toolStripButton6.Checked = false;
-            //     toolStripButton7.Checked = true;
-            // }
-            // 
-            // string[] textArray0 = richTextBox1.Text.Split('\n');
-            // if (Regex.IsMatch(textArray0[richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart)], "・") == true)
-            // {
-            //     toolStripButton8.Checked = true;
-            // }
-            // else
-            // {
-            //     toolStripButton8.Checked = false;
-            // }
         }
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
