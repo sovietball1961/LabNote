@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LabNote
@@ -17,16 +15,18 @@ namespace LabNote
     {
         private static readonly string settingsDirectory = $"{Directory.GetCurrentDirectory()}\\data";
         // richTextBox1フォント固定用定数
-        // private const uint IMF_DUALFONT = 0x80;
-        // private const uint WM_USER = 0x0400;
-        // private const uint EM_SETLANGOPTIONS = WM_USER + 120;
-        // private const uint EM_GETLANGOPTIONS = WM_USER + 121;
-        // [System.Runtime.InteropServices.DllImport("USER32.dll")]
-        // private static extern uint SendMessage(IntPtr hWnd, uint msg, uint wParam, uint lParam);
+        const int EM_LINEINDEX = 0xBB;
+        const int EM_LINEFROMCHAR = 0xC9;
+        [DllImport("User32.Dll")]
+        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         public Form1()
         {
             InitializeComponent();
+            Font baseFont = richTextBox1.SelectionFont;
+            ProgramProperties.PreviousFont = new Font(baseFont.FontFamily,
+                                                      baseFont.Size,
+                                                      baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -65,8 +65,13 @@ namespace LabNote
             if (e.KeyCode == Keys.Enter)
             {
                 int i = 0;
+                Font baseFont = richTextBox1.SelectionFont;
                 string[] textArray = richTextBox1.Text.Split('\n');
-                Console.WriteLine(Regex.IsMatch(textArray[textArray.Length - 1], @"^ "));
+                Font fnt0 = new Font(baseFont.FontFamily,
+                                     baseFont.Size,
+                                     baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
+                richTextBox1.SelectionFont = fnt0;
+
                 if (Regex.IsMatch(textArray[textArray.Length - 1], @"^ ") == true)
                 {
                     char[] strings = textArray[textArray.Length - 1].ToCharArray();
@@ -90,12 +95,84 @@ namespace LabNote
                 if (toolStripButton8.Checked == true)
                 {
                     char[] strings = textArray[textArray.Length - 1].ToCharArray();
-                    while (strings[i] == ' ') { i++; }
+                    while (strings[i] == ' ')
+                    {
+                        i++;
+                        if (i >= strings.Length)
+                        {
+                            break;
+                        }
+                    }
                     richTextBox1.Select(i, 0);
                     richTextBox1.AppendText("\n・");
                     e.Handled = true;
                 }
+
+                richTextBox1.SelectionFont = baseFont;
             }
+            if (e.KeyCode == Keys.Space)
+            {
+                int i = 0;
+                Font baseFont = richTextBox1.SelectionFont;
+                string[] textArray = richTextBox1.Text.Split('\n');
+                char[] strings = textArray[textArray.Length - 1].ToCharArray();
+                int colPos = SendMessage(richTextBox1.Handle, EM_LINEFROMCHAR, -1, 0) + 1;
+                int lineIndex = SendMessage(textBox1.Handle, EM_LINEINDEX, -1, 0);
+                int rowPos = richTextBox1.SelectionStart - lineIndex + 1;
+                do
+                {
+                    if (i >= strings.Length)
+                    {
+                        break;
+                    }
+                }
+                while (strings[i++] == ' ');
+
+                Console.WriteLine(colPos);
+                if (rowPos == textArray.Length || colPos == 0)
+                {
+                    Font fnt0 = new Font(baseFont.FontFamily,
+                                         baseFont.Size,
+                                         baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
+                    richTextBox1.SelectionFont = fnt0;
+                    return;
+                }
+
+                string str = "";
+                try
+                {
+                    str = textArray[colPos - 1].Substring(0, rowPos - 1);
+                    Console.WriteLine(colPos);
+                    Console.WriteLine(rowPos);
+                }
+                catch
+                {
+                    str = "";
+                }
+                finally
+                {
+                    if (Regex.IsMatch(str, @"\S") == false)
+                    {
+                        Font fnt0 = new Font(baseFont.FontFamily,
+                                             baseFont.Size,
+                                             baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
+                        richTextBox1.SelectionFont = fnt0;
+                    }
+                    else
+                    {
+                        richTextBox1.SelectionFont = ProgramProperties.PreviousFont;
+                    }
+                }
+            }
+            else
+            {
+                richTextBox1.SelectionFont = ProgramProperties.PreviousFont;
+                return;
+            }
+        }
+
+        private void RichTextBox1_KeyUp(object sender, KeyEventArgs e)
+        {
             if (e.KeyCode == Keys.Right || e.KeyCode == Keys.Left || e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
             {
                 Font baseFont = richTextBox1.SelectionFont;
@@ -161,7 +238,6 @@ namespace LabNote
                     toolStripButton8.Checked = false;
                 }
             }
-            else { return; }
         }
 
         private void ToggleButtons_CheckedChanged(object sender, EventArgs e)
@@ -338,6 +414,7 @@ namespace LabNote
                         break;
                 }
             }
+            ProgramProperties.PreviousFont = richTextBox1.SelectionFont;
         }
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
@@ -580,5 +657,10 @@ namespace LabNote
     {
         [JsonPropertyName("users")]
         public List<string> Users { get; set; }
+    }
+
+    public class ProgramProperties
+    {
+        public static Font PreviousFont { get; set; }
     }
 }
