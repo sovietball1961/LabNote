@@ -308,6 +308,7 @@ namespace LabNote
             this.richTextBox1.Size = new System.Drawing.Size(598, 332);
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
+            this.richTextBox1.WordWrap = false;
             this.richTextBox1.CursorChanged += new System.EventHandler(this.RichTextBox1_CursorChanged);
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             this.richTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyUp);

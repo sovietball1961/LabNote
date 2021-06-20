@@ -14,11 +14,11 @@ namespace LabNote
     public partial class Form1 : Form
     {
         private static readonly string settingsDirectory = $"{Directory.GetCurrentDirectory()}\\data";
-        // richTextBox1フォント固定用定数
-        const int EM_LINEINDEX = 0xBB;
-        const int EM_LINEFROMCHAR = 0xC9;
+
         [DllImport("User32.Dll")]
         private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private const int EM_LINEINDEX = 0xBB;
+        private const int EM_LINEFROMCHAR = 0xC9;
 
         public Form1()
         {
@@ -107,56 +107,46 @@ namespace LabNote
                     richTextBox1.AppendText("\n・");
                     e.Handled = true;
                 }
-
                 richTextBox1.SelectionFont = baseFont;
             }
             if (e.KeyCode == Keys.Space)
             {
-                int i = 0;
-                Font baseFont = richTextBox1.SelectionFont;
-                string[] textArray = richTextBox1.Text.Split('\n');
-                char[] strings = textArray[textArray.Length - 1].ToCharArray();
-                int colPos = SendMessage(richTextBox1.Handle, EM_LINEFROMCHAR, -1, 0) + 1;
-                int lineIndex = SendMessage(textBox1.Handle, EM_LINEINDEX, -1, 0);
-                int rowPos = richTextBox1.SelectionStart - lineIndex + 1;
-                do
+                if (richTextBox1.Focused == true)
                 {
-                    if (i >= strings.Length)
+                    int i = 0;
+                    Font baseFont = richTextBox1.SelectionFont;
+                    string[] textArray = richTextBox1.Text.Split('\n');
+                    char[] strings = textArray[textArray.Length - 1].ToCharArray();
+
+                    int rowPos = SendMessage(richTextBox1.Handle, EM_LINEFROMCHAR, -1, 0);
+                    int lineIndex = SendMessage(richTextBox1.Handle, EM_LINEINDEX, -1, 0);
+                    int colPos = richTextBox1.SelectionStart - lineIndex;
+                    do
                     {
-                        break;
+                        if (i >= strings.Length)
+                        {
+                            break;
+                        }
                     }
-                }
-                while (strings[i++] == ' ');
+                    while (strings[i++] == ' ');
 
-                Console.WriteLine(colPos);
-                if (rowPos == textArray.Length || colPos == 0)
-                {
-                    Font fnt0 = new Font(baseFont.FontFamily,
-                                         baseFont.Size,
-                                         baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
-                    richTextBox1.SelectionFont = fnt0;
-                    return;
-                }
-
-                string str = "";
-                try
-                {
-                    str = textArray[colPos - 1].Substring(0, rowPos - 1);
-                    Console.WriteLine(colPos);
-                    Console.WriteLine(rowPos);
-                }
-                catch
-                {
-                    str = "";
-                }
-                finally
-                {
-                    if (Regex.IsMatch(str, @"\S") == false)
+                    if (string.IsNullOrEmpty(richTextBox1.Text) == true)
                     {
                         Font fnt0 = new Font(baseFont.FontFamily,
                                              baseFont.Size,
                                              baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
                         richTextBox1.SelectionFont = fnt0;
+                        return;
+                    }
+
+                    string str = textArray[rowPos].Substring(0, colPos);
+                    if (rowPos == textArray.Length || colPos == 0 || Regex.IsMatch(str, @"\S") == false)
+                    {
+                        Font fnt0 = new Font(baseFont.FontFamily,
+                                             baseFont.Size,
+                                             baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
+                        richTextBox1.SelectionFont = fnt0;
+                        return;
                     }
                     else
                     {
@@ -520,6 +510,9 @@ namespace LabNote
                         textBox5.Focus();
                     }
                     break;
+                case Keys.Space:
+
+                break;
             } 
             return base.ProcessCmdKey(ref msg, keyData);
         }
