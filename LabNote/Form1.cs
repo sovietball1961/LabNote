@@ -488,6 +488,10 @@ namespace LabNote
                     case Keys.T:
                         toolStripButton5.PerformClick();
                         return true;
+                    case Keys.L:
+                        var window = new LICENSE();
+                        window.Show();
+                        return true;
                     case Keys.OemPeriod:
                         toolStripButton8.PerformClick();
                         return true;
