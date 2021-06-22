@@ -84,13 +84,13 @@ namespace LabNote
                         }
                     }
                     richTextBox1.AppendText("\n" + new string(' ', i));
-                    e.Handled = true;
                     if (toolStripButton8.Checked == true)
                     {
                         richTextBox1.Select(i, 0);
                         richTextBox1.AppendText("・");
                         return;
                     }
+                    e.Handled = true;
                 }
                 if (toolStripButton8.Checked == true)
                 {
@@ -108,6 +108,7 @@ namespace LabNote
                     e.Handled = true;
                 }
                 richTextBox1.SelectionFont = baseFont;
+                e.Handled = false;
             }
             if (e.KeyCode == Keys.Space)
             {
