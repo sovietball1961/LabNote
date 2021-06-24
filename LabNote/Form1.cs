@@ -62,104 +62,104 @@ namespace LabNote
 
         private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                int i = 0;
-                Font baseFont = richTextBox1.SelectionFont;
-                string[] textArray = richTextBox1.Text.Split('\n');
-                Font fnt0 = new Font(baseFont.FontFamily,
-                                     baseFont.Size,
-                                     baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
-                richTextBox1.SelectionFont = fnt0;
-
-                if (Regex.IsMatch(textArray[textArray.Length - 1], @"^ ") == true)
-                {
-                    char[] strings = textArray[textArray.Length - 1].ToCharArray();
-                    while (strings[i] == ' ')
-                    {
-                        i++;
-                        if (i >= strings.Length)
-                        {
-                            break;
-                        }
-                    }
-                    richTextBox1.AppendText("\n" + new string(' ', i));
-                    if (toolStripButton8.Checked == true)
-                    {
-                        richTextBox1.Select(i, 0);
-                        richTextBox1.AppendText("・");
-                        return;
-                    }
-                    e.Handled = true;
-                }
-                if (toolStripButton8.Checked == true)
-                {
-                    char[] strings = textArray[textArray.Length - 1].ToCharArray();
-                    while (strings[i] == ' ')
-                    {
-                        i++;
-                        if (i >= strings.Length)
-                        {
-                            break;
-                        }
-                    }
-                    richTextBox1.Select(i, 0);
-                    richTextBox1.AppendText("\n・");
-                    e.Handled = true;
-                }
-                richTextBox1.SelectionFont = baseFont;
-                e.Handled = false;
-            }
-            if (e.KeyCode == Keys.Space)
-            {
-                if (richTextBox1.Focused == true)
-                {
-                    int i = 0;
-                    Font baseFont = richTextBox1.SelectionFont;
-                    string[] textArray = richTextBox1.Text.Split('\n');
-                    char[] strings = textArray[textArray.Length - 1].ToCharArray();
-
-                    int rowPos = SendMessage(richTextBox1.Handle, EM_LINEFROMCHAR, -1, 0);
-                    int lineIndex = SendMessage(richTextBox1.Handle, EM_LINEINDEX, -1, 0);
-                    int colPos = richTextBox1.SelectionStart - lineIndex;
-                    do
-                    {
-                        if (i >= strings.Length)
-                        {
-                            break;
-                        }
-                    }
-                    while (strings[i++] == ' ');
-
-                    if (string.IsNullOrEmpty(richTextBox1.Text) == true)
-                    {
-                        Font fnt0 = new Font(baseFont.FontFamily,
-                                             baseFont.Size,
-                                             baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
-                        richTextBox1.SelectionFont = fnt0;
-                        return;
-                    }
-
-                    string str = textArray[rowPos].Substring(0, colPos);
-                    if (rowPos == textArray.Length || colPos == 0 || Regex.IsMatch(str, @"\S") == false)
-                    {
-                        Font fnt0 = new Font(baseFont.FontFamily,
-                                             baseFont.Size,
-                                             baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
-                        richTextBox1.SelectionFont = fnt0;
-                        return;
-                    }
-                    else
-                    {
-                        richTextBox1.SelectionFont = ProgramProperties.PreviousFont;
-                    }
-                }
-            }
-            else
-            {
-                richTextBox1.SelectionFont = ProgramProperties.PreviousFont;
-                return;
-            }
+            // if (e.KeyCode == Keys.Enter)
+            // {
+            //     int i = 0;
+            //     Font baseFont = richTextBox1.SelectionFont;
+            //     string[] textArray = richTextBox1.Text.Split('\n');
+            //     Font fnt0 = new Font(baseFont.FontFamily,
+            //                          baseFont.Size,
+            //                          baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
+            //     richTextBox1.SelectionFont = fnt0;
+            // 
+            //     if (Regex.IsMatch(textArray[textArray.Length - 1], @"^ ") == true)
+            //     {
+            //         char[] strings = textArray[textArray.Length - 1].ToCharArray();
+            //         while (strings[i] == ' ')
+            //         {
+            //             i++;
+            //             if (i >= strings.Length)
+            //             {
+            //                 break;
+            //             }
+            //         }
+            //         richTextBox1.AppendText("\n" + new string(' ', i));
+            //         if (toolStripButton8.Checked == true)
+            //         {
+            //             richTextBox1.Select(i, 0);
+            //             richTextBox1.AppendText("・");
+            //             return;
+            //         }
+            //         e.Handled = true;
+            //     }
+            //     if (toolStripButton8.Checked == true)
+            //     {
+            //         char[] strings = textArray[textArray.Length - 1].ToCharArray();
+            //         while (strings[i] == ' ')
+            //         {
+            //             i++;
+            //             if (i >= strings.Length)
+            //             {
+            //                 break;
+            //             }
+            //         }
+            //         richTextBox1.Select(i, 0);
+            //         richTextBox1.AppendText("\n・");
+            //         e.Handled = true;
+            //     }
+            //     richTextBox1.SelectionFont = baseFont;
+            //     e.Handled = false;
+            // }
+            // if (e.KeyCode == Keys.Space)
+            // {
+            //     if (richTextBox1.Focused == true)
+            //     {
+            //         int i = 0;
+            //         Font baseFont = richTextBox1.SelectionFont;
+            //         string[] textArray = richTextBox1.Text.Split('\n');
+            //         char[] strings = textArray[textArray.Length - 1].ToCharArray();
+            // 
+            //         int rowPos = SendMessage(richTextBox1.Handle, EM_LINEFROMCHAR, -1, 0);
+            //         int lineIndex = SendMessage(richTextBox1.Handle, EM_LINEINDEX, -1, 0);
+            //         int colPos = richTextBox1.SelectionStart - lineIndex;
+            //         do
+            //         {
+            //             if (i >= strings.Length)
+            //             {
+            //                 break;
+            //             }
+            //         }
+            //         while (strings[i++] == ' ');
+            // 
+            //         if (string.IsNullOrEmpty(richTextBox1.Text) == true)
+            //         {
+            //             Font fnt0 = new Font(baseFont.FontFamily,
+            //                                  baseFont.Size,
+            //                                  baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
+            //             richTextBox1.SelectionFont = fnt0;
+            //             return;
+            //         }
+            // 
+            //         string str = textArray[rowPos].Substring(0, colPos);
+            //         if (rowPos == textArray.Length || colPos == 0 || Regex.IsMatch(str, @"\S") == false)
+            //         {
+            //             Font fnt0 = new Font(baseFont.FontFamily,
+            //                                  baseFont.Size,
+            //                                  baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
+            //             richTextBox1.SelectionFont = fnt0;
+            //             return;
+            //         }
+            //         else
+            //         {
+            //             richTextBox1.SelectionFont = ProgramProperties.PreviousFont;
+            //         }
+            //     }
+            // }
+            // else
+            // {
+            //     richTextBox1.SelectionFont = ProgramProperties.PreviousFont;
+            //     return;
+            // }
         }
 
         private void RichTextBox1_KeyUp(object sender, KeyEventArgs e)
@@ -325,19 +325,25 @@ namespace LabNote
                         fnt5.Dispose();
                         break;
                     case "toolStripButton8":
-                        int i = 0;
-                        string[] textArray = richTextBox1.Text.Split('\n');
-                        char[] strings = textArray[textArray.Length - 1].ToCharArray();
-                        while (strings[i] == ' ')
-                        {
-                            i++;
-                            if (i >= strings.Length)
-                            {
-                                break;
-                            }
-                        }
-                        richTextBox1.Select(i - 1, 0);
-                        richTextBox1.AppendText("・");
+                        // << OLD CODE >>
+                        // int i = 0;
+                        // string[] textArray = richTextBox1.Text.Split('\n');
+                        // char[] strings = textArray[textArray.Length - 1].ToCharArray();
+                        // while (strings[i] == ' ')
+                        // {
+                        //     i++;
+                        //     if (i >= strings.Length)
+                        //     {
+                        //         break;
+                        //     }
+                        // }
+                        // richTextBox1.Select(i - 1, 0);
+                        // richTextBox1.AppendText("・");
+
+                        richTextBox1.SelectionIndent += 24;
+                        break;
+                    case "toolStripButton9":
+                        richTextBox1.SelectionBullet = !richTextBox1.SelectionBullet;
                         break;
                 }
             }
@@ -403,6 +409,12 @@ namespace LabNote
                         baseFont.Dispose();
                         fnt5.Dispose();
                         break;
+                    case "toolStripButton8":
+                        richTextBox1.SelectionIndent = 0;
+                        break;
+                    case "toolStripButton9":
+                        richTextBox1.SelectionBullet = !richTextBox1.SelectionBullet;
+                        break;
                 }
             }
             ProgramProperties.PreviousFont = richTextBox1.SelectionFont;
@@ -460,11 +472,6 @@ namespace LabNote
             //}
         }
 
-        private void ToolStripButton8_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             Keys code = keyData & Keys.KeyCode;
@@ -494,6 +501,9 @@ namespace LabNote
                         window.Show();
                         return true;
                     case Keys.OemPeriod:
+                        toolStripButton9.PerformClick();
+                        return true;
+                    case Keys.Tab:
                         toolStripButton8.PerformClick();
                         return true;
                     case Keys.PageUp:

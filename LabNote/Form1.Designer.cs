@@ -63,6 +63,7 @@ namespace LabNote
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -346,7 +347,8 @@ namespace LabNote
             this.toolStripButton6,
             this.toolStripButton7,
             this.toolStripSeparator3,
-            this.toolStripButton8});
+            this.toolStripButton8,
+            this.toolStripButton9});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(604, 27);
@@ -433,8 +435,8 @@ namespace LabNote
             this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(33, 24);
-            this.toolStripButton6.Text = "A^";
+            this.toolStripButton6.Size = new System.Drawing.Size(31, 24);
+            this.toolStripButton6.Text = "A‾";
             this.toolStripButton6.ToolTipText = "上付き文字";
             this.toolStripButton6.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
             // 
@@ -459,15 +461,25 @@ namespace LabNote
             // toolStripButton8
             // 
             this.toolStripButton8.CheckOnClick = true;
-            this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton8.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(31, 24);
+            this.toolStripButton8.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton8.Text = "・ー";
             this.toolStripButton8.ToolTipText = "箇条書き";
-            this.toolStripButton8.Click += new System.EventHandler(this.ToolStripButton8_Click);
+            this.toolStripButton8.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            // 
+            // toolStripButton9
+            // 
+            this.toolStripButton9.CheckOnClick = true;
+            this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
+            this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton9.Name = "toolStripButton9";
+            this.toolStripButton9.Size = new System.Drawing.Size(23, 24);
+            this.toolStripButton9.Text = "toolStripButton9";
             // 
             // fontDialog1
             // 
@@ -687,6 +699,7 @@ namespace LabNote
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ToolStripButton toolStripButton9;
     }
 }
 
