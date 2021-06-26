@@ -15,18 +15,9 @@ namespace LabNote
     {
         private static readonly string settingsDirectory = $"{Directory.GetCurrentDirectory()}\\data";
 
-        [DllImport("User32.Dll")]
-        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        private const int EM_LINEINDEX = 0xBB;
-        private const int EM_LINEFROMCHAR = 0xC9;
-
         public Form1()
         {
             InitializeComponent();
-            Font baseFont = richTextBox1.SelectionFont;
-            ProgramProperties.PreviousFont = new Font(baseFont.FontFamily,
-                                                      baseFont.Size,
-                                                      baseFont.Style & ~(FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -37,15 +28,15 @@ namespace LabNote
                 // CreateSettingsFile();
             }
             ListSettingsFiles();
-            LoadUsersListFile();
-            LoadSettingsFile();
+            ReadUsersListFile();
+            ReadSettingsFile();
             listBox1.SelectedIndex = listBox1.Items.Count - 1;
             richTextBox1.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
 
             // RejectRichTextFontChanging(richTextBox1);
         }
 
-        private void TextBoxes_LimitNumberOnly(object sender, KeyPressEventArgs e)
+        private void TextBoxes_NumberOnly(object sender, KeyPressEventArgs e)
         {
             TextBox textBox = sender as TextBox;
             if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
@@ -60,8 +51,78 @@ namespace LabNote
             }
         }
 
+        private void RichTextBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Right || e.KeyCode == Keys.Left || e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+            {
+                Font baseFont = richTextBox1.SelectionFont;
+                if ((baseFont.Style & FontStyle.Italic) != 0)
+                {
+                    toolStripButton2.Checked = true;
+                }
+                else
+                {
+                    toolStripButton2.Checked = false;
+                }
+
+                if ((baseFont.Style & FontStyle.Underline) != 0)
+                {
+                    toolStripButton3.Checked = true;
+                }
+                else
+                {
+                    toolStripButton3.Checked = false;
+                }
+
+                if ((baseFont.Style & FontStyle.Bold) != 0)
+                {
+                    toolStripButton4.Checked = true;
+                }
+                else
+                {
+                    toolStripButton4.Checked = false;
+                }
+
+                if ((baseFont.Style & FontStyle.Strikeout) != 0)
+                {
+                    toolStripButton5.Checked = true;
+                }
+                else
+                {
+                    toolStripButton5.Checked = false;
+                }
+
+                if (richTextBox1.SelectionCharOffset > 0)
+                {
+                    toolStripButton6.Checked = true;
+                    toolStripButton7.Checked = false;
+                }
+                else if (richTextBox1.SelectionCharOffset < 0)
+                {
+                    toolStripButton6.Checked = false;
+                    toolStripButton7.Checked = true;
+                }
+                else
+                {
+                    toolStripButton6.Checked = false;
+                    toolStripButton7.Checked = false;
+                }
+
+                string[] textArray0 = richTextBox1.Text.Split('\n');
+                if (Regex.IsMatch(textArray0[richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart)], "・") == true)
+                {
+                    toolStripButton8.Checked = true;
+                }
+                else
+                {
+                    toolStripButton8.Checked = false;
+                }
+            }
+        }
+
         private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
+            #region
             // if (e.KeyCode == Keys.Enter)
             // {
             //     int i = 0;
@@ -160,78 +221,10 @@ namespace LabNote
             //     richTextBox1.SelectionFont = ProgramProperties.PreviousFont;
             //     return;
             // }
+            #endregion
         }
 
-        private void RichTextBox1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Right || e.KeyCode == Keys.Left || e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
-            {
-                Font baseFont = richTextBox1.SelectionFont;
-                if ((baseFont.Style & FontStyle.Italic) != 0)
-                {
-                    toolStripButton2.Checked = true;
-                }
-                else
-                {
-                    toolStripButton2.Checked = false;
-                }
-
-                if ((baseFont.Style & FontStyle.Underline) != 0)
-                {
-                    toolStripButton3.Checked = true;
-                }
-                else
-                {
-                    toolStripButton3.Checked = false;
-                }
-
-                if ((baseFont.Style & FontStyle.Bold) != 0)
-                {
-                    toolStripButton4.Checked = true;
-                }
-                else
-                {
-                    toolStripButton4.Checked = false;
-                }
-
-                if ((baseFont.Style & FontStyle.Strikeout) != 0)
-                {
-                    toolStripButton5.Checked = true;
-                }
-                else
-                {
-                    toolStripButton5.Checked = false;
-                }
-
-                if (richTextBox1.SelectionCharOffset > 0)
-                {
-                    toolStripButton6.Checked = true;
-                    toolStripButton7.Checked = false;
-                }
-                else if (richTextBox1.SelectionCharOffset < 0)
-                {
-                    toolStripButton6.Checked = false;
-                    toolStripButton7.Checked = true;
-                }
-                else
-                {
-                    toolStripButton6.Checked = false;
-                    toolStripButton7.Checked = false;
-                }
-
-                string[] textArray0 = richTextBox1.Text.Split('\n');
-                if (Regex.IsMatch(textArray0[richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart)], "・") == true)
-                {
-                    toolStripButton8.Checked = true;
-                }
-                else
-                {
-                    toolStripButton8.Checked = false;
-                }
-            }
-        }
-
-        private void ToggleButtons_CheckedChanged(object sender, EventArgs e)
+        private void ToolStripToggles_Click(object sender, EventArgs e)
         {
             ToolStripButton button = sender as ToolStripButton;
             Font baseFont = richTextBox1.SelectionFont;
@@ -324,27 +317,6 @@ namespace LabNote
                         baseFont.Dispose();
                         fnt5.Dispose();
                         break;
-                    case "toolStripButton8":
-                        // << OLD CODE >>
-                        // int i = 0;
-                        // string[] textArray = richTextBox1.Text.Split('\n');
-                        // char[] strings = textArray[textArray.Length - 1].ToCharArray();
-                        // while (strings[i] == ' ')
-                        // {
-                        //     i++;
-                        //     if (i >= strings.Length)
-                        //     {
-                        //         break;
-                        //     }
-                        // }
-                        // richTextBox1.Select(i - 1, 0);
-                        // richTextBox1.AppendText("・");
-
-                        richTextBox1.SelectionIndent += 24;
-                        break;
-                    case "toolStripButton9":
-                        richTextBox1.SelectionBullet = !richTextBox1.SelectionBullet;
-                        break;
                 }
             }
             else if (button.Checked == false)
@@ -409,28 +381,45 @@ namespace LabNote
                         baseFont.Dispose();
                         fnt5.Dispose();
                         break;
-                    case "toolStripButton8":
-                        richTextBox1.SelectionIndent = 0;
-                        break;
-                    case "toolStripButton9":
-                        richTextBox1.SelectionBullet = !richTextBox1.SelectionBullet;
-                        break;
                 }
             }
-            ProgramProperties.PreviousFont = richTextBox1.SelectionFont;
+        }
+
+        private void ToolStripButtons_Click(object sender, EventArgs e)
+        {
+            ToolStripButton button = sender as ToolStripButton;
+            switch (button.Name)
+            {
+                case "toolStripButton9":
+                    richTextBox1.SelectionBullet = true;
+                    break;
+            }
         }
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
         {
-            if(listBox1.SelectedIndex == listBox1.Items.Count - 1)
+            if (listBox1.SelectedIndex == listBox1.Items.Count - 1)
             {
                 WriteSettingsFile($"{settingsDirectory}\\{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}");
                 ListSettingsFiles();
-                listBox1.SelectedIndex = listBox1.Items.Count -  2;
+                listBox1.SelectedIndex = listBox1.Items.Count - 2;
             }
-            if(listBox1.SelectedIndices.Count == 1)
+            if (listBox1.SelectedIndices.Count == 1)
             {
                 WriteSettingsFile($"{settingsDirectory}\\{listBox1.SelectedItem}");
+            }
+        }
+
+        private void ToolStripButton8_MouseDown(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    richTextBox1.SelectionIndent += 24;
+                    break;
+                case MouseButtons.Right:
+                    richTextBox1.SelectionIndent = 0;
+                    break;
             }
         }
 
@@ -453,12 +442,12 @@ namespace LabNote
                 else
                 {
                     dateTimePicker1.Enabled = false;
-                    LoadSettingsFile();
+                    ReadSettingsFile();
                 }
             }
         }
 
-        private void SearchingNote_KeyUp(object sender, KeyEventArgs e)
+        private void SearchingNotesTextBoxes_KeyUp(object sender, KeyEventArgs e)
         {
             listBox1.Items.Clear();
             string[] jsonFiles = Directory.GetFiles(settingsDirectory, $"*{textBox6.Text}*-*{textBox7.Text}*-*{textBox8.Text}*_*{textBox9.Text}*-*{textBox10.Text}*-*{textBox11.Text}*.json");
@@ -466,10 +455,6 @@ namespace LabNote
             {
                 listBox1.Items.Add(Path.GetFileNameWithoutExtension(filePath));
             }
-            //if ((textBox6.Text == "") && (textBox7.Text == "") && (textBox8.Text == "") && (textBox9.Text == "") && (textBox10.Text == "") && (textBox11.Text == ""))
-            //{
-            //    ListSettingsFiles();
-            //}
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -568,7 +553,7 @@ namespace LabNote
             writer.Close();
         }
 
-        private void LoadSettingsFile()
+        private void ReadSettingsFile()
         {
             if (listBox1.SelectedIndices.Count == 1)
             {
@@ -589,7 +574,7 @@ namespace LabNote
             else { return; }
         }
 
-        private void LoadUsersListFile()
+        private void ReadUsersListFile()
         {
             var targetFile = $"{Directory.GetCurrentDirectory()}\\users.json";
             if (File.Exists(targetFile))
@@ -615,23 +600,14 @@ namespace LabNote
                 var writer = new StreamWriter(targetFile);
                 writer.Write(jsonData);
                 writer.Close();
-                LoadUsersListFile();
+                ReadUsersListFile();
             }
         }
 
-        private void RichTextBox1_CursorChanged(object sender, EventArgs e)
+        private void ReadProgramSettingsFile()
         {
 
         }
-
-        // richTextBox1 フォント固定用メソッド
-        // private void RejectRichTextFontChanging(RichTextBox RichTextBoxCtrl)
-        // {
-        //     uint lParam;
-        //     lParam = SendMessage(RichTextBoxCtrl.Handle, EM_GETLANGOPTIONS, 0, 0);
-        //     lParam &= ~IMF_DUALFONT;
-        //     SendMessage(RichTextBoxCtrl.Handle, EM_SETLANGOPTIONS, 0, lParam);
-        // }
     }
 
     public class MainJsonElements
@@ -669,6 +645,8 @@ namespace LabNote
 
     public class ProgramProperties
     {
-        public static Font PreviousFont { get; set; }
+        public int IndentWidth { get; set; }
+
+        public int DefaultFontSize { get; set; }
     }
 }

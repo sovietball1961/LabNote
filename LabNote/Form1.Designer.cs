@@ -206,7 +206,7 @@ namespace LabNote
             this.textBox5.Size = new System.Drawing.Size(80, 27);
             this.textBox5.TabIndex = 6;
             this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxes_LimitNumberOnly);
+            this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxes_NumberOnly);
             // 
             // label6
             // 
@@ -237,7 +237,7 @@ namespace LabNote
             this.textBox4.Size = new System.Drawing.Size(38, 27);
             this.textBox4.TabIndex = 5;
             this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxes_LimitNumberOnly);
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxes_NumberOnly);
             // 
             // label4
             // 
@@ -258,7 +258,7 @@ namespace LabNote
             this.textBox3.Size = new System.Drawing.Size(38, 27);
             this.textBox3.TabIndex = 4;
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxes_LimitNumberOnly);
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxes_NumberOnly);
             // 
             // label3
             // 
@@ -310,7 +310,6 @@ namespace LabNote
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             this.richTextBox1.WordWrap = false;
-            this.richTextBox1.CursorChanged += new System.EventHandler(this.RichTextBox1_CursorChanged);
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             this.richTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyUp);
             // 
@@ -381,7 +380,7 @@ namespace LabNote
             this.toolStripButton2.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton2.Text = "I";
             this.toolStripButton2.ToolTipText = "斜体";
-            this.toolStripButton2.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton2.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripButton3
             // 
@@ -394,7 +393,7 @@ namespace LabNote
             this.toolStripButton3.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton3.Text = "&U";
             this.toolStripButton3.ToolTipText = "下線";
-            this.toolStripButton3.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton3.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripButton4
             // 
@@ -407,7 +406,7 @@ namespace LabNote
             this.toolStripButton4.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton4.Text = "B";
             this.toolStripButton4.ToolTipText = "太字";
-            this.toolStripButton4.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton4.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripButton5
             // 
@@ -420,7 +419,7 @@ namespace LabNote
             this.toolStripButton5.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton5.Text = "T";
             this.toolStripButton5.ToolTipText = "取り消し線";
-            this.toolStripButton5.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton5.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripSeparator2
             // 
@@ -438,7 +437,7 @@ namespace LabNote
             this.toolStripButton6.Size = new System.Drawing.Size(31, 24);
             this.toolStripButton6.Text = "A‾";
             this.toolStripButton6.ToolTipText = "上付き文字";
-            this.toolStripButton6.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton6.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripButton7
             // 
@@ -451,7 +450,7 @@ namespace LabNote
             this.toolStripButton7.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton7.Text = "A_";
             this.toolStripButton7.ToolTipText = "下付き文字";
-            this.toolStripButton7.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton7.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripSeparator3
             // 
@@ -460,7 +459,6 @@ namespace LabNote
             // 
             // toolStripButton8
             // 
-            this.toolStripButton8.CheckOnClick = true;
             this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton8.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
@@ -469,7 +467,7 @@ namespace LabNote
             this.toolStripButton8.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton8.Text = "・ー";
             this.toolStripButton8.ToolTipText = "箇条書き";
-            this.toolStripButton8.Click += new System.EventHandler(this.ToggleButtons_CheckedChanged);
+            this.toolStripButton8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToolStripButton8_MouseDown);
             // 
             // toolStripButton9
             // 
@@ -480,6 +478,7 @@ namespace LabNote
             this.toolStripButton9.Name = "toolStripButton9";
             this.toolStripButton9.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton9.Text = "toolStripButton9";
+            this.toolStripButton9.Click += new System.EventHandler(this.ToolStripButtons_Click);
             // 
             // fontDialog1
             // 
@@ -513,7 +512,7 @@ namespace LabNote
             this.textBox6.Size = new System.Drawing.Size(38, 23);
             this.textBox6.TabIndex = 3;
             this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            this.textBox6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNotesTextBoxes_KeyUp);
             // 
             // textBox7
             // 
@@ -523,7 +522,7 @@ namespace LabNote
             this.textBox7.Size = new System.Drawing.Size(38, 23);
             this.textBox7.TabIndex = 5;
             this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            this.textBox7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNotesTextBoxes_KeyUp);
             // 
             // label13
             // 
@@ -543,7 +542,7 @@ namespace LabNote
             this.textBox8.Size = new System.Drawing.Size(38, 23);
             this.textBox8.TabIndex = 7;
             this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox8.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            this.textBox8.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNotesTextBoxes_KeyUp);
             // 
             // label14
             // 
@@ -563,7 +562,7 @@ namespace LabNote
             this.textBox9.Size = new System.Drawing.Size(38, 23);
             this.textBox9.TabIndex = 9;
             this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox9.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            this.textBox9.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNotesTextBoxes_KeyUp);
             // 
             // label15
             // 
@@ -583,7 +582,7 @@ namespace LabNote
             this.textBox10.Size = new System.Drawing.Size(38, 23);
             this.textBox10.TabIndex = 11;
             this.textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox10.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            this.textBox10.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNotesTextBoxes_KeyUp);
             // 
             // label16
             // 
@@ -603,7 +602,7 @@ namespace LabNote
             this.textBox11.Size = new System.Drawing.Size(38, 23);
             this.textBox11.TabIndex = 13;
             this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox11.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNote_KeyUp);
+            this.textBox11.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchingNotesTextBoxes_KeyUp);
             // 
             // label17
             // 
