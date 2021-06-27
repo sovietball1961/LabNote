@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static System.ValueTuple;
 
 namespace LabNote
 {
@@ -18,6 +18,11 @@ namespace LabNote
         public Form1()
         {
             InitializeComponent();
+            var settings = ReadFormSettingsFile();
+            ProgramProperties.IndentWidth = settings.indentWidth;
+            ProgramProperties.RichTextBoxFont = settings.textBoxFont;
+            ProgramProperties.IsPictureFlex = settings.isPictureFlex;
+            ProgramProperties.PictureSizeLimit = settings.PictureSizeLimit;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -25,15 +30,14 @@ namespace LabNote
             if (!Directory.Exists(settingsDirectory))
             {
                 Directory.CreateDirectory(settingsDirectory);
-                // CreateSettingsFile();
             }
             ListSettingsFiles();
             ReadUsersListFile();
             ReadSettingsFile();
+            richTextBox1.SelectionFont = ProgramProperties.RichTextBoxFont;
             listBox1.SelectedIndex = listBox1.Items.Count - 1;
             richTextBox1.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
-
-            // RejectRichTextFontChanging(richTextBox1);
+            textBox1.Select();
         }
 
         private void TextBoxes_NumberOnly(object sender, KeyPressEventArgs e)
@@ -393,21 +397,45 @@ namespace LabNote
                 case "toolStripButton9":
                     richTextBox1.SelectionBullet = true;
                     break;
+                case "toolStripButton10":
+                    var currentSize = richTextBox1.SelectionFont.Size;
+                    currentSize += 2.0F;
+                    richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily,
+                                                          currentSize,
+                                                          richTextBox1.SelectionFont.Style);
+
+                    break;
+                case "toolStripButton11":
+                    var currentSize1 = richTextBox1.SelectionFont.Size;
+                    currentSize1 -= 1;
+                    richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily,
+                                                          currentSize1,
+                                                          richTextBox1.SelectionFont.Style);
+                    break;
             }
         }
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex == listBox1.Items.Count - 1)
-            {
-                WriteSettingsFile($"{settingsDirectory}\\{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}");
-                ListSettingsFiles();
-                listBox1.SelectedIndex = listBox1.Items.Count - 2;
-            }
             if (listBox1.SelectedIndices.Count == 1)
             {
-                WriteSettingsFile($"{settingsDirectory}\\{listBox1.SelectedItem}");
+                bool isFormCorrect = CheckFormCorrect();
+                if (isFormCorrect == true)
+                {
+                    if (listBox1.SelectedIndex == listBox1.Items.Count - 1)
+                    {
+                        WriteSettingsFile($"{settingsDirectory}\\{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}");
+                        ListSettingsFiles();
+                        listBox1.SelectedIndex = listBox1.Items.Count - 2;
+                    }
+                    else
+                    {
+                        WriteSettingsFile($"{settingsDirectory}\\{listBox1.SelectedItem}");
+                    }
+                }
+                else { return; }
             }
+            else { return; }
         }
 
         private void ToolStripButton8_MouseDown(object sender, MouseEventArgs e)
@@ -415,7 +443,7 @@ namespace LabNote
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    richTextBox1.SelectionIndent += 24;
+                    richTextBox1.SelectionIndent += ProgramProperties.IndentWidth;
                     break;
                 case MouseButtons.Right:
                     richTextBox1.SelectionIndent = 0;
@@ -425,9 +453,9 @@ namespace LabNote
 
         private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != 0)
+            if (listBox1.SelectedIndices.Count != 0)
             {
-                if (listBox1.SelectedIndex + 1 == listBox1.Items.Count)
+                if (listBox1.SelectedIndex == listBox1.Items.Count - 1)
                 {
                     TextBox[] textBoxes = new TextBox[] { textBox1, textBox2, textBox3, textBox4, textBox5 };
                     foreach(var textBox in textBoxes)
@@ -445,6 +473,7 @@ namespace LabNote
                     ReadSettingsFile();
                 }
             }
+            else { return; }
         }
 
         private void SearchingNotesTextBoxes_KeyUp(object sender, KeyEventArgs e)
@@ -455,6 +484,26 @@ namespace LabNote
             {
                 listBox1.Items.Add(Path.GetFileNameWithoutExtension(filePath));
             }
+        }
+
+        private void ColorResetObjects_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (sender.GetType().Equals(typeof(TextBox)))
+            {
+                var textBox = sender as TextBox;
+                textBox.BackColor = SystemColors.Window;
+            }
+            if (sender.GetType().Equals(typeof(ComboBox)))
+            {
+                var comboBox = sender as ComboBox;
+                comboBox.BackColor = SystemColors.Window;
+            }
+        }
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            comboBox.BackColor = SystemColors.Window;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -485,11 +534,29 @@ namespace LabNote
                         var window = new LICENSE();
                         window.Show();
                         return true;
+                    case Keys.Q:
+                        richTextBox1.SelectionIndent = 0;
+                        return true;
+                    case Keys.V:
+                        var iData = Clipboard.GetDataObject();
+                        if (ProgramProperties.IsPictureFlex == true && iData.GetDataPresent(DataFormats.Bitmap))
+                        {
+                            Image image = Clipboard.GetImage();
+                            Image newImage = CreateThumbnail(image);
+                            Clipboard.Clear();
+                            Clipboard.SetImage(newImage);
+                            richTextBox1.Paste();
+                            return true;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     case Keys.OemPeriod:
                         toolStripButton9.PerformClick();
                         return true;
                     case Keys.Tab:
-                        toolStripButton8.PerformClick();
+                        richTextBox1.SelectionIndent += ProgramProperties.IndentWidth;
                         return true;
                     case Keys.PageUp:
                         toolStripButton6.PerformClick();
@@ -507,14 +574,99 @@ namespace LabNote
                     if (richTextBox1.Focused == true)
                     {
                         richTextBox1.AppendText(new string(' ', 4));
-                        textBox5.Focus();
                     }
-                    break;
-                case Keys.Space:
-
-                break;
+                    else { break; }
+                    return true;
             } 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private bool CheckFormCorrect()
+        {
+            int incorrectFlag = 0;
+            List<string> incorrects = new List<string>();
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                textBox1.BackColor = Color.Tomato;
+                incorrects.Add("タイトル");
+                incorrectFlag |= 1;
+            }
+            else
+            {
+                textBox1.BackColor = SystemColors.Window;
+            }
+
+            if (string.IsNullOrWhiteSpace(comboBox1.Text))
+            {
+                comboBox1.BackColor = Color.Tomato;
+                incorrects.Add("記録者");
+                incorrectFlag |= 2;
+            }
+            else
+            {
+                comboBox1.BackColor = SystemColors.Window;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBox2.Text))
+            {
+                textBox2.BackColor = Color.Tomato;
+                incorrects.Add("天候");
+                incorrectFlag |= 4;
+            }
+            else
+            {
+                textBox2.BackColor = SystemColors.Window;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBox3.Text))
+            {
+                textBox3.BackColor = Color.Tomato;
+                incorrects.Add("気温");
+                incorrectFlag |= 8;
+            }
+            else
+            {
+                textBox3.BackColor = SystemColors.Window;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBox4.Text))
+            {
+                textBox4.BackColor = Color.Tomato;
+                incorrects.Add("湿度");
+                incorrectFlag |= 16;
+            }
+            else
+            {
+                textBox4.BackColor = SystemColors.Window;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBox5.Text))
+            {
+                textBox5.BackColor = Color.Tomato;
+                incorrects.Add("気圧");
+                incorrectFlag |= 32;
+            }
+            else
+            {
+                textBox5.BackColor = SystemColors.Window;
+            }
+
+            if (string.IsNullOrWhiteSpace(richTextBox1.Text))
+            {
+                incorrects.Add("ノート");
+                incorrectFlag |= 64;
+            }
+
+            if (incorrectFlag == 0)
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show($"{string.Join(", ", incorrects)}が未記入です", "警告", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
         }
 
         private void ListSettingsFiles()
@@ -530,7 +682,7 @@ namespace LabNote
 
         private void WriteSettingsFile(string targetPath)
         {
-            var jsonObjects = new MainJsonElements
+            var jsonObjects = new NoteJsonElements
             {
                 Title = textBox1.Text,
                 Recorder = comboBox1.Text,
@@ -560,7 +712,7 @@ namespace LabNote
                 var targetPath = $"{settingsDirectory}\\{listBox1.SelectedItem}";
                 var reader = new StreamReader(targetPath + ".json");
                 var jsonData = reader.ReadToEnd();
-                var jsonObjects = JsonSerializer.Deserialize<MainJsonElements>(jsonData);
+                var jsonObjects = JsonSerializer.Deserialize<NoteJsonElements>(jsonData);
                 reader.Close();
                 textBox1.Text = jsonObjects.Title;
                 textBox2.Text = jsonObjects.Weather;
@@ -604,13 +756,82 @@ namespace LabNote
             }
         }
 
-        private void ReadProgramSettingsFile()
+        private (Font textBoxFont, int indentWidth, bool isPictureFlex, int PictureSizeLimit) ReadFormSettingsFile()
         {
+            var targetFile = $"{Directory.GetCurrentDirectory()}\\program_settings.json";
 
+            var baseFont = richTextBox1.SelectionFont;
+            Font defFont = new Font(baseFont.FontFamily, baseFont.Size);
+            if (File.Exists(targetFile))
+            {
+                var reader = new StreamReader(targetFile);
+                var jsonData = reader.ReadToEnd();
+                var jsonObjects = JsonSerializer.Deserialize<FormJsonElements>(jsonData);
+                reader.Close();
+
+                var newFont = new Font(jsonObjects.DefaultFontFamily, jsonObjects.DefaultFontSize);
+                return (newFont, jsonObjects.IndentWidth, jsonObjects.IsPictureFlex, jsonObjects.PictureSizeLimit);
+            }
+            else
+            {
+                var newJsonObjects = new FormJsonElements
+                {
+                    IndentWidth = 24,
+                    DefaultFontSize = 14,
+                    DefaultFontFamily = "Meiryo UI",
+                    IsPictureFlex = true,
+                    PictureSizeLimit = 50,
+                };
+                var jsonOptions = new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    WriteIndented = true,
+                };
+                var newJsonData = JsonSerializer.Serialize(newJsonObjects, jsonOptions);
+                var writer = new StreamWriter(targetFile);
+                writer.Write(newJsonData);
+                writer.Close();
+                ReadFormSettingsFile();
+                return (defFont, 24, true, 50);
+            }
         }
+
+        Image CreateThumbnail(Image image)
+        {
+            Console.WriteLine($"{image.Width}, {image.Height}");
+            int w = ProgramProperties.PictureSizeLimit;
+            double ratio = 1f;
+            if (image.Width >= image.Height)
+            {
+                ratio = (double)image.Height / (double)image.Width;
+            }
+            else
+            {
+                ratio = (double)image.Width / (double)image.Height;
+            }
+            int h = (int)Math.Round(w * ratio);
+
+            Bitmap canvas = new Bitmap(w, h);
+
+            Graphics g = Graphics.FromImage(canvas);
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            g.FillRectangle(new SolidBrush(Color.White), 0, 0, w, h);
+
+            float fw = (float)w / (float)image.Width;
+            float fh = (float)h / (float)image.Height;
+
+            float scale = Math.Min(fw, fh);
+            fw = image.Width * scale;
+            fh = image.Height * scale;
+
+            g.DrawImage(image, (w - fw) / 2, (h - fh) / 2, fw, fh);
+            g.Dispose();
+
+            return canvas;
+        } 
     }
 
-    public class MainJsonElements
+    public class NoteJsonElements
     {
         [JsonPropertyName("title")]
         public string Title { get; set; }
@@ -643,10 +864,32 @@ namespace LabNote
         public List<string> Users { get; set; }
     }
 
-    public class ProgramProperties
+    public class FormJsonElements
     {
+        [JsonPropertyName("indentWidth")]
         public int IndentWidth { get; set; }
 
+        [JsonPropertyName("defaultFontSize")]
         public int DefaultFontSize { get; set; }
+
+        [JsonPropertyName("defaultFontFamily")]
+        public string DefaultFontFamily { get; set; }
+
+        [JsonPropertyName("isPictureFlex")]
+        public bool IsPictureFlex { get; set; }
+
+        [JsonPropertyName("pictureSizeLimit")]
+        public int PictureSizeLimit { get; set; }
+    }
+
+    public static class ProgramProperties
+    {
+        public static int IndentWidth { get; set; }
+
+        public static Font RichTextBoxFont { get; set; }
+
+        public static bool IsPictureFlex { get; set; }
+
+        public static int PictureSizeLimit { get; set; }
     }
 }

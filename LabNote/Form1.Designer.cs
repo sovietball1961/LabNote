@@ -78,6 +78,8 @@ namespace LabNote
             this.label16 = new System.Windows.Forms.Label();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -278,6 +280,7 @@ namespace LabNote
             this.textBox2.Size = new System.Drawing.Size(68, 27);
             this.textBox2.TabIndex = 3;
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ColorResetObjects_KeyDown);
             // 
             // label2
             // 
@@ -297,6 +300,7 @@ namespace LabNote
             this.textBox1.Size = new System.Drawing.Size(492, 27);
             this.textBox1.TabIndex = 1;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ColorResetObjects_KeyDown);
             // 
             // richTextBox1
             // 
@@ -331,6 +335,8 @@ namespace LabNote
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(199, 28);
             this.comboBox1.TabIndex = 2;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            this.comboBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ColorResetObjects_KeyDown);
             // 
             // toolStrip1
             // 
@@ -345,6 +351,8 @@ namespace LabNote
             this.toolStripSeparator2,
             this.toolStripButton6,
             this.toolStripButton7,
+            this.toolStripButton10,
+            this.toolStripButton11,
             this.toolStripSeparator3,
             this.toolStripButton8,
             this.toolStripButton9});
@@ -361,7 +369,7 @@ namespace LabNote
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 24);
-            this.toolStripButton1.ToolTipText = "Save";
+            this.toolStripButton1.ToolTipText = "ノートを保存";
             this.toolStripButton1.Click += new System.EventHandler(this.ToolStripButton1_Click);
             // 
             // toolStripSeparator1
@@ -416,8 +424,8 @@ namespace LabNote
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(23, 24);
-            this.toolStripButton5.Text = "T";
+            this.toolStripButton5.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton5.Text = " T ";
             this.toolStripButton5.ToolTipText = "取り消し線";
             this.toolStripButton5.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
@@ -466,18 +474,17 @@ namespace LabNote
             this.toolStripButton8.Name = "toolStripButton8";
             this.toolStripButton8.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton8.Text = "・ー";
-            this.toolStripButton8.ToolTipText = "箇条書き";
+            this.toolStripButton8.ToolTipText = "インデント";
             this.toolStripButton8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToolStripButton8_MouseDown);
             // 
             // toolStripButton9
             // 
-            this.toolStripButton9.CheckOnClick = true;
             this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
             this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton9.Name = "toolStripButton9";
             this.toolStripButton9.Size = new System.Drawing.Size(23, 24);
-            this.toolStripButton9.Text = "toolStripButton9";
+            this.toolStripButton9.Text = "箇条書き";
             this.toolStripButton9.Click += new System.EventHandler(this.ToolStripButtons_Click);
             // 
             // fontDialog1
@@ -614,6 +621,28 @@ namespace LabNote
             this.label17.TabIndex = 12;
             this.label17.Text = "秒";
             // 
+            // toolStripButton10
+            // 
+            this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton10.Image")));
+            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton10.Name = "toolStripButton10";
+            this.toolStripButton10.Size = new System.Drawing.Size(23, 24);
+            this.toolStripButton10.Text = "toolStripButton10";
+            this.toolStripButton10.ToolTipText = "文字を拡大";
+            this.toolStripButton10.Click += new System.EventHandler(this.ToolStripButtons_Click);
+            // 
+            // toolStripButton11
+            // 
+            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
+            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton11.Name = "toolStripButton11";
+            this.toolStripButton11.Size = new System.Drawing.Size(23, 24);
+            this.toolStripButton11.Text = "toolStripButton11";
+            this.toolStripButton11.ToolTipText = "文字を縮小";
+            this.toolStripButton11.Click += new System.EventHandler(this.ToolStripButtons_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -699,6 +728,8 @@ namespace LabNote
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ToolStripButton toolStripButton9;
+        private System.Windows.Forms.ToolStripButton toolStripButton10;
+        private System.Windows.Forms.ToolStripButton toolStripButton11;
     }
 }
 
