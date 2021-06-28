@@ -23,6 +23,8 @@ namespace LabNote
             ProgramProperties.RichTextBoxFont = settings.textBoxFont;
             ProgramProperties.IsPictureFlex = settings.isPictureFlex;
             ProgramProperties.PictureSizeLimit = settings.PictureSizeLimit;
+            toolStripStatusLabel1.Text = "FontFamily: " + settings.textBoxFont.FontFamily.Name;
+            toolStripStatusLabel2.Text = "FontSize: " + settings.textBoxFont.Size.ToString() + "px";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -484,6 +486,7 @@ namespace LabNote
             {
                 listBox1.Items.Add(Path.GetFileNameWithoutExtension(filePath));
             }
+            listBox1.Items.Add("    新規作成");
         }
 
         private void ColorResetObjects_KeyDown(object sender, KeyEventArgs e)
@@ -530,10 +533,10 @@ namespace LabNote
                     case Keys.T:
                         toolStripButton5.PerformClick();
                         return true;
-                    case Keys.L:
-                        var window = new LICENSE();
-                        window.Show();
-                        return true;
+                    // case Keys.L:
+                    //    var window = new LICENSE();
+                    //    window.Show();
+                    //    return true;
                     case Keys.Q:
                         richTextBox1.SelectionIndent = 0;
                         return true;
@@ -556,7 +559,7 @@ namespace LabNote
                         toolStripButton9.PerformClick();
                         return true;
                     case Keys.Tab:
-                        richTextBox1.SelectionIndent += ProgramProperties.IndentWidth;
+                        richTextBox1.SelectionIndent = 0;
                         return true;
                     case Keys.PageUp:
                         toolStripButton6.PerformClick();
@@ -573,7 +576,7 @@ namespace LabNote
                 case Keys.Tab:
                     if (richTextBox1.Focused == true)
                     {
-                        richTextBox1.AppendText(new string(' ', 4));
+                        richTextBox1.SelectionIndent += ProgramProperties.IndentWidth;
                     }
                     else { break; }
                     return true;
@@ -828,7 +831,14 @@ namespace LabNote
             g.Dispose();
 
             return canvas;
-        } 
+        }
+
+        private void richTextBox1_FontChanged(object sender, EventArgs e)
+        {
+            var baseFont = richTextBox1.SelectionFont;
+            toolStripStatusLabel1.Text = baseFont.FontFamily.Name;
+            toolStripStatusLabel2.Text = baseFont.Size.ToString();
+        }
     }
 
     public class NoteJsonElements

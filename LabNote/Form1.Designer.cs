@@ -61,9 +61,15 @@ namespace LabNote
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton13 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton14 = new System.Windows.Forms.ToolStripButton();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -78,14 +84,16 @@ namespace LabNote
             this.label16 = new System.Windows.Forms.Label();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -96,7 +104,7 @@ namespace LabNote
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Location = new System.Drawing.Point(1, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(779, 470);
+            this.panel1.Size = new System.Drawing.Size(783, 531);
             this.panel1.TabIndex = 0;
             // 
             // splitContainer1
@@ -131,7 +139,7 @@ namespace LabNote
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(779, 470);
+            this.splitContainer1.Size = new System.Drawing.Size(783, 531);
             this.splitContainer1.SplitterDistance = 171;
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.TabStop = false;
@@ -144,9 +152,9 @@ namespace LabNote
             this.listBox1.Font = new System.Drawing.Font("Yu Gothic UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(3, 3);
+            this.listBox1.Location = new System.Drawing.Point(3, 4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(165, 464);
+            this.listBox1.Size = new System.Drawing.Size(165, 504);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
@@ -310,10 +318,11 @@ namespace LabNote
             this.richTextBox1.Font = new System.Drawing.Font("Meiryo UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.richTextBox1.Location = new System.Drawing.Point(3, 135);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(598, 332);
+            this.richTextBox1.Size = new System.Drawing.Size(602, 374);
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             this.richTextBox1.WordWrap = false;
+            this.richTextBox1.FontChanged += new System.EventHandler(this.richTextBox1_FontChanged);
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             this.richTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyUp);
             // 
@@ -355,10 +364,14 @@ namespace LabNote
             this.toolStripButton11,
             this.toolStripSeparator3,
             this.toolStripButton8,
-            this.toolStripButton9});
+            this.toolStripButton9,
+            this.toolStripSeparator4,
+            this.toolStripButton12,
+            this.toolStripButton13,
+            this.toolStripButton14});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(604, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(608, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -369,7 +382,7 @@ namespace LabNote
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 24);
-            this.toolStripButton1.ToolTipText = "ノートを保存";
+            this.toolStripButton1.ToolTipText = "保存 (Ctrl + S)";
             this.toolStripButton1.Click += new System.EventHandler(this.ToolStripButton1_Click);
             // 
             // toolStripSeparator1
@@ -387,7 +400,7 @@ namespace LabNote
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton2.Text = "I";
-            this.toolStripButton2.ToolTipText = "斜体";
+            this.toolStripButton2.ToolTipText = "斜体 (Ctrl + I)";
             this.toolStripButton2.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripButton3
@@ -400,7 +413,7 @@ namespace LabNote
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton3.Text = "&U";
-            this.toolStripButton3.ToolTipText = "下線";
+            this.toolStripButton3.ToolTipText = "下線 (Ctrl + U)";
             this.toolStripButton3.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripButton4
@@ -413,7 +426,7 @@ namespace LabNote
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton4.Text = "B";
-            this.toolStripButton4.ToolTipText = "太字";
+            this.toolStripButton4.ToolTipText = "太字 (Ctrl + B)";
             this.toolStripButton4.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripButton5
@@ -426,7 +439,7 @@ namespace LabNote
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton5.Text = " T ";
-            this.toolStripButton5.ToolTipText = "取り消し線";
+            this.toolStripButton5.ToolTipText = "取り消し線 (Ctrl + T)";
             this.toolStripButton5.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripSeparator2
@@ -444,7 +457,7 @@ namespace LabNote
             this.toolStripButton6.Name = "toolStripButton6";
             this.toolStripButton6.Size = new System.Drawing.Size(31, 24);
             this.toolStripButton6.Text = "A‾";
-            this.toolStripButton6.ToolTipText = "上付き文字";
+            this.toolStripButton6.ToolTipText = "上付き文字 (Ctrl + PgUp)";
             this.toolStripButton6.Click += new System.EventHandler(this.ToolStripToggles_Click);
             // 
             // toolStripButton7
@@ -457,8 +470,30 @@ namespace LabNote
             this.toolStripButton7.Name = "toolStripButton7";
             this.toolStripButton7.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton7.Text = "A_";
-            this.toolStripButton7.ToolTipText = "下付き文字";
+            this.toolStripButton7.ToolTipText = "下付き文字 (Ctrl + PgDn)";
             this.toolStripButton7.Click += new System.EventHandler(this.ToolStripToggles_Click);
+            // 
+            // toolStripButton10
+            // 
+            this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton10.Image")));
+            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton10.Name = "toolStripButton10";
+            this.toolStripButton10.Size = new System.Drawing.Size(23, 24);
+            this.toolStripButton10.Text = "toolStripButton10";
+            this.toolStripButton10.ToolTipText = "文字を拡大 (Ctrl + Shift + >)";
+            this.toolStripButton10.Click += new System.EventHandler(this.ToolStripButtons_Click);
+            // 
+            // toolStripButton11
+            // 
+            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
+            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton11.Name = "toolStripButton11";
+            this.toolStripButton11.Size = new System.Drawing.Size(23, 24);
+            this.toolStripButton11.Text = "toolStripButton11";
+            this.toolStripButton11.ToolTipText = "文字を縮小 (Ctrl + Shift + <)";
+            this.toolStripButton11.Click += new System.EventHandler(this.ToolStripButtons_Click);
             // 
             // toolStripSeparator3
             // 
@@ -474,7 +509,7 @@ namespace LabNote
             this.toolStripButton8.Name = "toolStripButton8";
             this.toolStripButton8.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton8.Text = "・ー";
-            this.toolStripButton8.ToolTipText = "インデント";
+            this.toolStripButton8.ToolTipText = "インデント\r\n(+: Tab 0: Ctrl + Tab)";
             this.toolStripButton8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToolStripButton8_MouseDown);
             // 
             // toolStripButton9
@@ -485,7 +520,43 @@ namespace LabNote
             this.toolStripButton9.Name = "toolStripButton9";
             this.toolStripButton9.Size = new System.Drawing.Size(23, 24);
             this.toolStripButton9.Text = "箇条書き";
+            this.toolStripButton9.ToolTipText = "箇条書き (Ctrl + .)";
             this.toolStripButton9.Click += new System.EventHandler(this.ToolStripButtons_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripButton12
+            // 
+            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton12.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton12.Image")));
+            this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton12.Name = "toolStripButton12";
+            this.toolStripButton12.Size = new System.Drawing.Size(23, 24);
+            this.toolStripButton12.Text = "toolStripButton12";
+            this.toolStripButton12.ToolTipText = "左揃え (Ctrl + L)";
+            // 
+            // toolStripButton13
+            // 
+            this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton13.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton13.Image")));
+            this.toolStripButton13.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton13.Name = "toolStripButton13";
+            this.toolStripButton13.Size = new System.Drawing.Size(23, 24);
+            this.toolStripButton13.Text = "toolStripButton13";
+            this.toolStripButton13.ToolTipText = "中央揃え (Ctrl + E)";
+            // 
+            // toolStripButton14
+            // 
+            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton14.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton14.Image")));
+            this.toolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton14.Name = "toolStripButton14";
+            this.toolStripButton14.Size = new System.Drawing.Size(23, 24);
+            this.toolStripButton14.Text = "toolStripButton14";
+            this.toolStripButton14.ToolTipText = "右揃え (Ctrl + R)";
             // 
             // fontDialog1
             // 
@@ -621,33 +692,35 @@ namespace LabNote
             this.label17.TabIndex = 12;
             this.label17.Text = "秒";
             // 
-            // toolStripButton10
+            // statusStrip1
             // 
-            this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton10.Image")));
-            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton10.Name = "toolStripButton10";
-            this.toolStripButton10.Size = new System.Drawing.Size(23, 24);
-            this.toolStripButton10.Text = "toolStripButton10";
-            this.toolStripButton10.ToolTipText = "文字を拡大";
-            this.toolStripButton10.Click += new System.EventHandler(this.ToolStripButtons_Click);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 539);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.TabIndex = 14;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripButton11
+            // toolStripStatusLabel1
             // 
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
-            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(23, 24);
-            this.toolStripButton11.Text = "toolStripButton11";
-            this.toolStripButton11.ToolTipText = "文字を縮小";
-            this.toolStripButton11.Click += new System.EventHandler(this.ToolStripButtons_Click);
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(780, 500);
+            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.textBox11);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.textBox10);
@@ -673,6 +746,8 @@ namespace LabNote
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -730,6 +805,13 @@ namespace LabNote
         private System.Windows.Forms.ToolStripButton toolStripButton9;
         private System.Windows.Forms.ToolStripButton toolStripButton10;
         private System.Windows.Forms.ToolStripButton toolStripButton11;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton toolStripButton12;
+        private System.Windows.Forms.ToolStripButton toolStripButton13;
+        private System.Windows.Forms.ToolStripButton toolStripButton14;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
 
