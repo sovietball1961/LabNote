@@ -839,6 +839,11 @@ namespace LabNote
             toolStripStatusLabel1.Text = baseFont.FontFamily.Name;
             toolStripStatusLabel2.Text = baseFont.Size.ToString();
         }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            ProgramProperties.PictureSizeLimit *= (trackBar1.Value * 10);
+        }
     }
 
     public class NoteJsonElements
