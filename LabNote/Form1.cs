@@ -122,7 +122,7 @@ namespace LabNote
 
         private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-           
+            richTextBox1.SelectionFont = ProgramProperties.RichTextBoxFont;
         }
 
         private void ToolStripToggles_Click(object sender, EventArgs e)
@@ -301,15 +301,21 @@ namespace LabNote
                                                           currentSize,
                                                           richTextBox1.SelectionFont.Style);
 
+                    ProgramProperties.RichTextBoxFont = richTextBox1.SelectionFont;
                     break;
                 case "toolStripButton11":
                     var currentSize1 = richTextBox1.SelectionFont.Size;
-                    currentSize1 -= 1;
+                    currentSize1 -= 2.0F;
                     richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily,
                                                           currentSize1,
                                                           richTextBox1.SelectionFont.Style);
+
+                    ProgramProperties.RichTextBoxFont = richTextBox1.SelectionFont;
                     break;
             }
+
+            toolStripStatusLabel1.Text = "FontFamily: " + richTextBox1.SelectionFont.FontFamily.Name;
+            toolStripStatusLabel2.Text = "FontSize: " + richTextBox1.SelectionFont.Size.ToString() + "px";
         }
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
@@ -409,6 +415,38 @@ namespace LabNote
             Keys code = keyData & Keys.KeyCode;
             Keys modi = keyData & Keys.Modifiers;
 
+            if (modi == (Keys.Control | Keys.Shift))
+            {
+                switch (code)
+                {
+                    case Keys.OemPeriod:
+                        var currentSize = richTextBox1.SelectionFont.Size;
+                        currentSize += 2.0F;
+                        richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily,
+                                                              currentSize,
+                                                              richTextBox1.SelectionFont.Style);
+
+                        ProgramProperties.RichTextBoxFont = richTextBox1.SelectionFont;
+
+                        toolStripStatusLabel1.Text = "FontFamily: " + richTextBox1.SelectionFont.FontFamily.Name;
+                        toolStripStatusLabel2.Text = "FontSize: " + richTextBox1.SelectionFont.Size.ToString() + "px";
+                        return true;
+                    case Keys.Oemcomma:
+                        var currentSize1 = richTextBox1.SelectionFont.Size;
+                        currentSize1 -= 2.0F;
+                        richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily,
+                                                              currentSize1,
+                                                              richTextBox1.SelectionFont.Style);
+
+                        ProgramProperties.RichTextBoxFont = richTextBox1.SelectionFont;
+
+                        toolStripStatusLabel1.Text = "FontFamily: " + richTextBox1.SelectionFont.FontFamily.Name;
+                        toolStripStatusLabel2.Text = "FontSize: " + richTextBox1.SelectionFont.Size.ToString() + "px";
+                        return true;
+                    default:
+                        break;
+                }
+            }
             if (modi == Keys.Control)
             {
                 switch (code)
@@ -475,7 +513,9 @@ namespace LabNote
                     }
                     else { break; }
                     return true;
-            } 
+                default:
+                    break;
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -728,14 +768,14 @@ namespace LabNote
             return canvas;
         }
 
-        private void richTextBox1_FontChanged(object sender, EventArgs e)
+        private void RichTextBox1_FontChanged(object sender, EventArgs e)
         {
             var baseFont = richTextBox1.SelectionFont;
             toolStripStatusLabel1.Text = baseFont.FontFamily.Name;
             toolStripStatusLabel2.Text = baseFont.Size.ToString();
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void TrackBar1_Scroll(object sender, EventArgs e)
         {
             ProgramProperties.PictureSizeLimit *= (trackBar1.Value * 10);
         }

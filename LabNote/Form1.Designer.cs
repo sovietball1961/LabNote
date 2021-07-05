@@ -325,7 +325,7 @@ namespace LabNote
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             this.richTextBox1.WordWrap = false;
-            this.richTextBox1.FontChanged += new System.EventHandler(this.richTextBox1_FontChanged);
+            this.richTextBox1.FontChanged += new System.EventHandler(this.RichTextBox1_FontChanged);
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             this.richTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyUp);
             // 
@@ -734,7 +734,7 @@ namespace LabNote
             this.trackBar1.TabIndex = 15;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBar1.Value = 1;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.trackBar1.Scroll += new System.EventHandler(this.TrackBar1_Scroll);
             // 
             // Form1
             // 
