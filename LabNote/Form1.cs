@@ -793,6 +793,11 @@ namespace LabNote
         }
     }
 
+    class RWJsonSettings
+    {
+
+    }
+
     public class NoteJsonElements
     {
         [JsonPropertyName("title")]
