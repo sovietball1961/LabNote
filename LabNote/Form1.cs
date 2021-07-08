@@ -28,8 +28,8 @@ namespace LabNote
                 Directory.CreateDirectory(settingsDirectory);
             }
             ListSettingsFiles();
-            ReadUsersListFile();
-            ReadSettingsFile();
+            SetUsersFromJson();
+            SetFormValueFromJson();
             SetRichTextboxProperties();
             listBox1.SelectedIndex = listBox1.Items.Count - 1;
             richTextBox1.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
@@ -373,7 +373,7 @@ namespace LabNote
                 else
                 {
                     dateTimePicker1.Enabled = false;
-                    ReadSettingsFile();
+                    SetFormValueFromJson();
                 }
             }
             else { return; }
@@ -643,7 +643,7 @@ namespace LabNote
             writer.Close();
         }
 
-        private void ReadSettingsFile()
+        private void SetFormValueFromJson()
         {
             if (listBox1.SelectedIndices.Count == 1)
             {
@@ -652,6 +652,8 @@ namespace LabNote
                 var jsonData = reader.ReadToEnd();
                 var jsonObjects = JsonSerializer.Deserialize<NoteJsonElements>(jsonData);
                 reader.Close();
+
+                // Set each object value from json settings file.
                 textBox1.Text = jsonObjects.Title;
                 textBox2.Text = jsonObjects.Weather;
                 textBox3.Text = jsonObjects.Temperature.ToString();
@@ -664,7 +666,7 @@ namespace LabNote
             else { return; }
         }
 
-        private void ReadUsersListFile()
+        private void SetUsersFromJson()
         {
             var targetFile = $"{Directory.GetCurrentDirectory()}\\users.json";
             if (File.Exists(targetFile))
@@ -690,11 +692,11 @@ namespace LabNote
                 var writer = new StreamWriter(targetFile);
                 writer.Write(jsonData);
                 writer.Close();
-                ReadUsersListFile();
+                SetUsersFromJson();
             }
         }
 
-        private (Font textBoxFont, int indentWidth, bool isPictureFlex, int PictureSizeLimit) ReadFormSettingsFile()
+        private (Font textBoxFont, int indentWidth, bool isPictureFlex, int PictureSizeLimit) GetProgramSettingsFromJson()
         {
             var targetFile = $"{Directory.GetCurrentDirectory()}\\program_settings.json";
 
@@ -729,7 +731,7 @@ namespace LabNote
                 var writer = new StreamWriter(targetFile);
                 writer.Write(newJsonData);
                 writer.Close();
-                ReadFormSettingsFile();
+                GetProgramSettingsFromJson();
                 return (defFont, 24, true, 50);
             }
         }
@@ -782,7 +784,7 @@ namespace LabNote
 
         private void SetRichTextboxProperties()
         {
-            var settings = ReadFormSettingsFile();
+            var settings = GetProgramSettingsFromJson();
             ProgramProperties.IndentWidth = settings.indentWidth;
             ProgramProperties.RichTextBoxFont = settings.textBoxFont;
             ProgramProperties.IsPictureFlex = settings.isPictureFlex;
@@ -790,6 +792,12 @@ namespace LabNote
             richTextBox1.SelectionFont = settings.textBoxFont;
             toolStripStatusLabel1.Text = "FontFamily: " + richTextBox1.SelectionFont.FontFamily.Name;
             toolStripStatusLabel2.Text = "FontSize: " + richTextBox1.SelectionFont.Size.ToString() + "px";
+        }
+
+        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+            var window = new LICENSE();
+            window.Show();
         }
     }
 
