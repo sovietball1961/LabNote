@@ -7,7 +7,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static System.ValueTuple;
 
 namespace LabNote
 {
