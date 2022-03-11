@@ -27,7 +27,8 @@ namespace LabNote
                 Directory.CreateDirectory(settingsDirectory);
             }
             ListSettingsFiles();
-            SetFormValueFromJson();
+            ReadUsersListFile();
+            ReadSettingsFile();
             SetRichTextboxProperties();
             listBox1.SelectedIndex = listBox1.Items.Count - 1;
             richTextBox1.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
@@ -120,12 +121,7 @@ namespace LabNote
 
         private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            richTextBox1.SelectionFont = new Font(ProgramProperties.RichTextBoxFont.FontFamily, ProgramProperties.RichTextBoxFont.Size, richTextBox1.SelectionFont.Style);
-        }
-
-        private void TrackBar1_Scroll(object sender, EventArgs e)
-        {
-            ProgramProperties.PictureSizeLimit = ProgramProperties.DefaultPictureSize + trackBar1.Value * 25;
+            richTextBox1.SelectionFont = ProgramProperties.RichTextBoxFont;
         }
 
         private void ToolStripToggles_Click(object sender, EventArgs e)
@@ -330,7 +326,7 @@ namespace LabNote
                 {
                     if (listBox1.SelectedIndex == listBox1.Items.Count - 1)
                     {
-                        WriteSettingsFile($"{settingsDirectory}\\{DateTime.Now:yyyy-MM-dd_HH-mm-ss}");
+                        WriteSettingsFile($"{settingsDirectory}\\{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}");
                         ListSettingsFiles();
                         listBox1.SelectedIndex = listBox1.Items.Count - 2;
                     }
@@ -376,7 +372,7 @@ namespace LabNote
                 else
                 {
                     dateTimePicker1.Enabled = false;
-                    SetFormValueFromJson();
+                    ReadSettingsFile();
                 }
             }
             else { return; }
@@ -411,12 +407,6 @@ namespace LabNote
         {
             var comboBox = sender as ComboBox;
             comboBox.BackColor = SystemColors.Window;
-        }
-
-        private void ToolStripSplitButton1_ButtonClick(object sender, EventArgs e)
-        {
-            var window = new LICENSE();
-            window.Show();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -475,6 +465,10 @@ namespace LabNote
                     case Keys.T:
                         toolStripButton5.PerformClick();
                         return true;
+                    // case Keys.L:
+                    //    var window = new LICENSE();
+                    //    window.Show();
+                    //    return true;
                     case Keys.Q:
                         richTextBox1.SelectionIndent = 0;
                         return true;
@@ -648,7 +642,7 @@ namespace LabNote
             writer.Close();
         }
 
-        private void SetFormValueFromJson()
+        private void ReadSettingsFile()
         {
             if (listBox1.SelectedIndices.Count == 1)
             {
@@ -657,8 +651,6 @@ namespace LabNote
                 var jsonData = reader.ReadToEnd();
                 var jsonObjects = JsonSerializer.Deserialize<NoteJsonElements>(jsonData);
                 reader.Close();
-
-                // Set each object value from json settings file.
                 textBox1.Text = jsonObjects.Title;
                 textBox2.Text = jsonObjects.Weather;
                 textBox3.Text = jsonObjects.Temperature.ToString();
@@ -671,7 +663,37 @@ namespace LabNote
             else { return; }
         }
 
-        private (Font textBoxFont, int indentWidth, bool isPictureFlex, int PictureSizeLimit, List<string> users) GetProgramSettingsFromJson()
+        private void ReadUsersListFile()
+        {
+            var targetFile = $"{Directory.GetCurrentDirectory()}\\users.json";
+            if (File.Exists(targetFile))
+            {
+                var reader = new StreamReader(targetFile);
+                var jsonData = reader.ReadToEnd();
+                var jsonObject = JsonSerializer.Deserialize<UsersJsonElement>(jsonData);
+                reader.Close();
+                comboBox1.Items.AddRange(jsonObject.Users.ToArray());
+            }
+            else
+            {
+                var jsonObject = new UsersJsonElement
+                {
+                    Users = new List<string>() { "プロイセン", "ぽるすか", "オーストリア帝国", "ロシア帝国" }
+                };
+                var jsonOptions = new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    WriteIndented = true,
+                };
+                var jsonData = JsonSerializer.Serialize(jsonObject, jsonOptions);
+                var writer = new StreamWriter(targetFile);
+                writer.Write(jsonData);
+                writer.Close();
+                ReadUsersListFile();
+            }
+        }
+
+        private (Font textBoxFont, int indentWidth, bool isPictureFlex, int PictureSizeLimit) ReadFormSettingsFile()
         {
             var targetFile = $"{Directory.GetCurrentDirectory()}\\program_settings.json";
 
@@ -685,7 +707,7 @@ namespace LabNote
                 reader.Close();
 
                 var newFont = new Font(jsonObjects.DefaultFontFamily, jsonObjects.DefaultFontSize);
-                return (newFont, jsonObjects.IndentWidth, jsonObjects.IsPictureFlex, jsonObjects.PictureSizeLimit, jsonObjects.Users);
+                return (newFont, jsonObjects.IndentWidth, jsonObjects.IsPictureFlex, jsonObjects.PictureSizeLimit);
             }
             else
             {
@@ -696,7 +718,6 @@ namespace LabNote
                     DefaultFontFamily = "Meiryo UI",
                     IsPictureFlex = true,
                     PictureSizeLimit = 50,
-                    Users = new List<string>() { "Hoge", "Fuga", "Piyo" },
                 };
                 var jsonOptions = new JsonSerializerOptions
                 {
@@ -707,15 +728,16 @@ namespace LabNote
                 var writer = new StreamWriter(targetFile);
                 writer.Write(newJsonData);
                 writer.Close();
-                GetProgramSettingsFromJson();
-                return (defFont, 24, true, 50, new List<string>() { "Hoge", "Fuga", "Piyo" });
+                ReadFormSettingsFile();
+                return (defFont, 24, true, 50);
             }
         }
 
         Image CreateThumbnail(Image image)
         {
+            Console.WriteLine($"{image.Width}, {image.Height}");
             int w = ProgramProperties.PictureSizeLimit;
-            double ratio = 0;
+            double ratio = 1f;
             if (image.Width >= image.Height)
             {
                 ratio = (double)image.Height / (double)image.Width;
@@ -745,17 +767,26 @@ namespace LabNote
             return canvas;
         }
 
+        private void RichTextBox1_FontChanged(object sender, EventArgs e)
+        {
+            var baseFont = richTextBox1.SelectionFont;
+            toolStripStatusLabel1.Text = baseFont.FontFamily.Name;
+            toolStripStatusLabel2.Text = baseFont.Size.ToString();
+        }
+
+        private void TrackBar1_Scroll(object sender, EventArgs e)
+        {
+            ProgramProperties.PictureSizeLimit *= (trackBar1.Value * 10);
+        }
+
         private void SetRichTextboxProperties()
         {
-            var (textBoxFont, indentWidth, isPictureFlex, PictureSizeLimit, users) = GetProgramSettingsFromJson();
-            ProgramProperties.IndentWidth = indentWidth;
-            ProgramProperties.RichTextBoxFont = textBoxFont;
-            ProgramProperties.IsPictureFlex = isPictureFlex;
-            ProgramProperties.PictureSizeLimit = PictureSizeLimit;
-            ProgramProperties.DefaultPictureSize = PictureSizeLimit;
-            richTextBox1.SelectionFont = textBoxFont;
-            comboBox1.Items.Clear();
-            comboBox1.Items.AddRange(users.ToArray());
+            var settings = ReadFormSettingsFile();
+            ProgramProperties.IndentWidth = settings.indentWidth;
+            ProgramProperties.RichTextBoxFont = settings.textBoxFont;
+            ProgramProperties.IsPictureFlex = settings.isPictureFlex;
+            ProgramProperties.PictureSizeLimit = settings.PictureSizeLimit;
+            richTextBox1.SelectionFont = settings.textBoxFont;
             toolStripStatusLabel1.Text = "FontFamily: " + richTextBox1.SelectionFont.FontFamily.Name;
             toolStripStatusLabel2.Text = "FontSize: " + richTextBox1.SelectionFont.Size.ToString() + "px";
         }
@@ -788,6 +819,12 @@ namespace LabNote
         public string RtfPath { get; set; }
     }
 
+    public class UsersJsonElement
+    {
+        [JsonPropertyName("users")]
+        public List<string> Users { get; set; }
+    }
+
     public class FormJsonElements
     {
         [JsonPropertyName("indentWidth")]
@@ -804,9 +841,6 @@ namespace LabNote
 
         [JsonPropertyName("pictureSizeLimit")]
         public int PictureSizeLimit { get; set; }
-
-        [JsonPropertyName("users")]
-        public List<string> Users { get; set; }
     }
 
     public static class ProgramProperties
@@ -818,7 +852,5 @@ namespace LabNote
         public static bool IsPictureFlex { get; set; }
 
         public static int PictureSizeLimit { get; set; }
-
-        public static int DefaultPictureSize { get; set; }
     }
 }
